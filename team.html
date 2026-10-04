@@ -8,6 +8,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Small outlined "tag" that sits in front of a role, e.g. the
+     ALUMNI tag on Jayden's Coach card. Uses the opposite accent of
+     the card (pink on a blue card) so it reads as a separate label.
+     Copy <span class="team-card-tag">...</span> into any
+     .team-card-role to reuse it. */
+  .team-card-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    margin-right: 6px;
+    border: 1px solid var(--pink-border);
+    border-radius: 4px;
+    color: var(--pink);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    vertical-align: 1px;
+  }
+  .team-card.pink .team-card-tag { color: var(--teal); border-color: var(--teal-border); }
+</style>
 </head>
 <!--
   TEAM PAGE
@@ -20,7 +39,8 @@
        group, then Coaches.
 
   Leadership shows the two announced captains — Chase M. and
-  Imani C. — instead of the old "To Be Revealed" placeholders.
+  Imani C. — followed by Josh V. (moved up from the combined
+  Code/Build/Media group, now Grade 11).
 
   Code, Build, and Media are intentionally NOT split into separate
   stacked sections anymore. They're one team, all on equal footing,
@@ -32,6 +52,10 @@
     - "Build"        — build only
     - "Build, Code"  — does both (comma-separated, on one line)
     - "Media"        — media
+
+  Coaches now includes Jayden Encarnacion, whose role line carries an
+  "Alumni" tag in front of "Coach" (.team-card-tag, styled in the
+  <style> block at the top of this file).
 
   How to add or remove a member:
   Copy one <div class="team-card pink"> (or "blue") block inside the
@@ -107,13 +131,6 @@
           <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
-    </div>
-
-    <!-- CODE / BUILD / MEDIA — one combined, equal-level group.
-         Cards are interleaved on purpose (Code, Build, Build+Code,
-         Media, repeat) instead of grouped block-by-block. -->
-    <div class="events-section-title type-caption">Code / Build / Media</div>
-    <div class="team-grid" style="margin-bottom: 44px;">
       <div class="team-card pink">
         <div class="team-card-img">
           <img src="portraitplaceholder.png" alt="">
@@ -121,9 +138,16 @@
         <div class="team-card-body">
           <div class="team-card-name type-names">Josh V.</div>
           <div class="team-card-role">Code</div>
-          <div class="team-card-grade">Grade 12</div>
+          <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
+    </div>
+
+    <!-- CODE / BUILD / MEDIA — one combined, equal-level group.
+         Cards are interleaved on purpose (Code, Build, Build+Code,
+         Media, repeat) instead of grouped block-by-block. -->
+    <div class="events-section-title type-caption">Code / Build / Media</div>
+    <div class="team-grid" style="margin-bottom: 44px;">
       <div class="team-card blue">
         <div class="team-card-img">
           <img src="portraitplaceholder.png" alt="">
@@ -258,6 +282,15 @@
         <div class="team-card-body">
           <div class="team-card-name type-names">Mr. Joe</div>
           <div class="team-card-role">Coach</div>
+        </div>
+      </div>
+      <div class="team-card blue">
+        <div class="team-card-img">
+          <img src="portraitplaceholder.png" alt="">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">Jayden Encarnacion</div>
+          <div class="team-card-role"><span class="team-card-tag">Alumni</span>Coach</div>
         </div>
       </div>
     </div>

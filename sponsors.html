@@ -8,6 +8,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Tier highlights. Every tile is the same medium size now
+     (.sponsor-grid.medium, 400px square from style.css section 19) —
+     the tier is shown by the border color instead of the size:
+       - .sponsor-tier.gold   → solid gold border + soft gold glow
+       - .sponsor-tier.silver → solid silver border + soft silver glow
+       - Bronze               → no extra class, keeps the normal
+                                dashed tile look */
+  .sponsor-tier.gold .sponsor-tile,
+  .sponsor-tier.gold .sponsor-tile:hover {
+    border: 2px solid #D4AF37;
+    box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 0 0 24px rgba(212,175,55,0.18);
+  }
+  .sponsor-tier.silver .sponsor-tile,
+  .sponsor-tier.silver .sponsor-tile:hover {
+    border: 2px solid #C0C0C0;
+    box-shadow: 0 0 0 1px rgba(192,192,192,0.3), 0 0 24px rgba(192,192,192,0.14);
+  }
+</style>
 </head>
 <!--
   SPONSORS PAGE
@@ -17,7 +36,7 @@
     2. Page header, "Our Sponsors" title. No corner gears here,
        same plain header as Team/History.
     3. Sponsors content: a short CTA (blurb + "Get in touch" button)
-       above three logo tiers, biggest to smallest.
+       above three logo tiers: Gold, Silver, Bronze.
 
   The "Get in touch" button opens the sponsor form as a popup right
   on top of this page, handled entirely by customgform.com's own
@@ -34,9 +53,12 @@
   (Design tab), not in this site's CSS — see the header note in
   style.css section 19 for more.
 
-  Sponsor tiers below are Gold (2 large), Silver (3 medium), Bronze
-  (5 small) — every tile is a square, sized per tier in style.css
-  section 19. Tile counts are a guess, resize/add/remove freely.
+  Sponsor tiers below are Gold (2), Silver (3), Bronze (5). Every
+  tile is now the same medium square (.sponsor-grid.medium). Gold
+  tiles get a gold highlight border and Silver tiles a silver one
+  (the "gold"/"silver" class on .sponsor-tier, styled in the <style>
+  block at the top of this file); Bronze keeps the plain dashed
+  look. Tile counts are a guess, add/remove freely.
   Every tile is a dashed placeholder box (same look as the
   placeholder photo spots on the History page) until a real sponsor
   logo exists — swap the <span> inside a .sponsor-tile for an
@@ -85,10 +107,10 @@
            data-label="Get in touch">Get in touch</div>
     </div>
 
-    <!-- TIER 1: 2 large square tiles side by side -->
-    <div class="sponsor-tier">
+    <!-- TIER 1: Gold — medium tiles with gold highlight -->
+    <div class="sponsor-tier gold">
       <div class="events-section-title type-caption">Gold Sponsors</div>
-      <div class="sponsor-grid large">
+      <div class="sponsor-grid medium">
         <div class="sponsor-tile">
           <span class="type-caption mono">Sponsor Logo</span>
         </div>
@@ -98,8 +120,8 @@
       </div>
     </div>
 
-    <!-- TIER 2: 3 medium square tiles -->
-    <div class="sponsor-tier">
+    <!-- TIER 2: Silver — medium tiles with silver highlight -->
+    <div class="sponsor-tier silver">
       <div class="events-section-title type-caption">Silver Sponsors</div>
       <div class="sponsor-grid medium">
         <div class="sponsor-tile">
@@ -114,10 +136,10 @@
       </div>
     </div>
 
-    <!-- TIER 3: 5 smaller square tiles -->
+    <!-- TIER 3: Bronze — medium tiles, plain dashed look -->
     <div class="sponsor-tier">
       <div class="events-section-title type-caption">Bronze Sponsors</div>
-      <div class="sponsor-grid small">
+      <div class="sponsor-grid medium">
         <div class="sponsor-tile">
           <span class="type-caption mono">Sponsor Logo</span>
         </div>
@@ -145,7 +167,6 @@
 <!-- RGB light strip, cycles through site colors at the very bottom of the page -->
 <div class="rgb-strip"></div>
 
-<script async src="https://cdn.customgform.com/cgf.js"></script>
 <script async src="https://cdn.customgform.com/cgf.js"></script>
 <script src="script.js"></script>
 </body>

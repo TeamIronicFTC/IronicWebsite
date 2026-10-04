@@ -8,6 +8,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Finished events: add class "past" to an .event-card to cross it
+     out. The card stays on the timeline, just dimmed with a
+     strike-through on the date, name and location. */
+  .event-card.past { opacity: 0.45; }
+  .event-card.past:hover { transform: none; border-color: var(--border); }
+  .event-card.past .event-date-block > div,
+  .event-card.past .event-name,
+  .event-card.past .event-location {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--pink);
+  }
+</style>
 </head>
 <!--
   EVENTS / SCHEDULE PAGE
@@ -29,6 +43,10 @@
   meet/judging, "text-dim" for scrimmage. Add class "featured" to
   event-card for the glowing highlight, that's what the championship
   uses.
+
+  Once an event is over, add class "past" to its event-card to cross
+  it out (styled in the <style> block at the top of this file). The
+  Kick Off Event is marked past.
 
   Top nav links (below) use type-button now instead of
   type-caption-heading — same smaller size as the site's other
@@ -87,8 +105,8 @@
 
     <div class="event-timeline">
 
-      <!-- Kick Off -->
-      <div class="event-card">
+      <!-- Kick Off (done — crossed out with "past") -->
+      <div class="event-card past">
         <div class="event-date-block">
           <div class="event-month mono">Sep</div>
           <div class="event-day type-caption-heading">12</div>
