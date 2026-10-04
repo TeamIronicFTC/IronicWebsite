@@ -1,8 +1,9 @@
 // TEAM IRONIC WEBSITE SCRIPT
 //
-// Does four things, all run on every page:
-//   1. Countdown card: updates the "days to go" number on the home
-//      page (does nothing on pages without a countdown card)
+// Does five things, all run on every page:
+//   1. Countdowns: updates the "days to go" number on the home page
+//      card AND the Robots page countdown (does nothing on pages
+//      without either one)
 //   2. Active nav link: adds the ".active" highlight to whichever
 //      nav link matches the current page
 //   3. History locator scrollspy: highlights whichever season is
@@ -11,36 +12,42 @@
 //   4. Newsletter modal: turns any "Newsletter" link/button into a
 //      blurred overlay popup instead of a page navigation (does
 //      nothing on pages with no such link)
+//   5. Robots page portfolios: loads a season's PDF only when its
+//      row is opened, and keeps just one row open at a time (does
+//      nothing on pages without a .portfolio-row)
 
 
 // ----------------------------------------------------------
 // 1. Countdown to next competition
 // ----------------------------------------------------------
-// To update, change NEXT_COMP_DATE below to the next event's date
-// and time (format: "YYYY-MM-DDTHH:MM:SS", 24 hour clock). Also
-// update the matching text in the .countdown-event line in
-// index.html so the label and the countdown match up.
+// To update, change the two lines below. Both the home page card and
+// the Robots page countdown read from these, so there's only one
+// place to change:
+//   NEXT_COMP_DATE  — the event's date and time
+//                     (format: "YYYY-MM-DDTHH:MM:SS", 24 hour clock)
+//   NEXT_COMP_LABEL — the text under the numbers; gets dropped into
+//                     any element with class "js-next-comp-label"
 //
-// Card only shows whole days now (hours/min/sec got dropped), so it
-// only needs to recheck once a minute, not once a second.
-const NEXT_COMP_DATE = "2026-09-12T08:00:00"; // Kick Off Event, Charlotte HS
+// Both countdowns show whole days only (rounded up), so this only
+// needs to recheck once a minute.
+const NEXT_COMP_DATE  = "2026-10-17T08:00:00";   // Scrimmage (first of the 10/17 or 10/24 dates)
+const NEXT_COMP_LABEL = "Scrimmage · 10/17/26";
+
+document.querySelectorAll('.js-next-comp-label').forEach(el => {
+  el.textContent = NEXT_COMP_LABEL;
+});
 
 function updateCountdown() {
-  const daysEl = document.getElementById('cd-days');
-  if (!daysEl) return; // this page has no countdown card, nothing to update
   if (!NEXT_COMP_DATE) return; // leave dashes showing
 
-  const target = new Date(NEXT_COMP_DATE).getTime();
-  const now = Date.now();
-  const diff = target - now;
+  const diff = Math.max(new Date(NEXT_COMP_DATE).getTime() - Date.now(), 0);
+  const days = String(Math.ceil(diff / (1000 * 60 * 60 * 24)));
 
-  if (diff <= 0) {
-    daysEl.textContent = '0';
-    return;
-  }
-
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  daysEl.textContent = String(days);
+  // cd-days = home page card, rb-days = Robots page
+  ['cd-days', 'rb-days'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = days;
+  });
 }
 
 updateCountdown();
@@ -191,5 +198,35 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Sign up!';
     }
+  });
+});
+
+
+// ----------------------------------------------------------
+// 5. Robots page: portfolio rows
+// ----------------------------------------------------------
+// Each <details class="portfolio-row" data-pdf="..."> on robots.html
+// holds an empty <iframe class="portfolio-frame">. The PDF path only
+// gets put into the iframe the first time that row is opened, so the
+// page doesn't download every season's portfolio up front. Opening a
+// row also closes any other open row, so only one big PDF viewer is
+// on screen at a time.
+document.addEventListener('DOMContentLoaded', () => {
+  const rows = document.querySelectorAll('.portfolio-row[data-pdf]');
+  if (!rows.length) return; // not the robots page, nothing to do
+
+  rows.forEach(row => {
+    row.addEventListener('toggle', () => {
+      if (!row.open) return;
+
+      const frame = row.querySelector('.portfolio-frame');
+      if (frame && !frame.getAttribute('src')) {
+        frame.setAttribute('src', row.dataset.pdf + '#view=FitH');
+      }
+
+      rows.forEach(other => {
+        if (other !== row && other.open) other.open = false;
+      });
+    });
   });
 });

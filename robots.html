@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team IRONIC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<!--
+  ROBOTS PAGE
+
+  What's on this page, top to bottom:
+    1. Top bar (nav), same one every page uses. "Robots" sits between
+       Events and History in every page's nav.
+    2. Robots hero: "Coming soon to a competition near you" headline
+       with a days-only countdown to the next competition right
+       under it.
+    3. Past Portfolios: a table-style list of every season, newest
+       first, DECODE down to Rover Ruckus. Click a row and it opens
+       up with that season's engineering portfolio PDF embedded right
+       in the page (plus "Open in new tab" and "Download" links).
+
+  Countdown: the date AND the "Scrimmage · 10/17/26" label both come
+  from NEXT_COMP_DATE / NEXT_COMP_LABEL at the top of script.js — the
+  same two lines drive the home page countdown card too, so update
+  them once there and both pages follow.
+
+  Portfolios: each row's PDF comes from its data-pdf attribute. Drop
+  the PDF files into a "portfolios" folder next to this page using
+  the exact file names below (or change data-pdf + the two links to
+  match whatever you name them):
+    portfolios/2025-26-decode.pdf
+    portfolios/2024-25-into-the-deep.pdf
+    portfolios/2023-24-centerstage.pdf
+    portfolios/2022-23-powerplay.pdf
+    portfolios/2021-22-freight-frenzy.pdf
+    portfolios/2020-21-ultimate-goal.pdf
+    portfolios/2019-20-skystone.pdf
+    portfolios/2018-19-rover-ruckus.pdf
+  A PDF only loads when its row is opened (script.js section 5), so
+  eight big portfolios don't all download the moment the page opens.
+  Opening one row closes whichever one was open before.
+
+  To add a season once BIOBUZZ wraps: copy one whole
+  <details class="portfolio-row"> block, paste it at the TOP of the
+  list (newest first), and swap the years, game name and file path.
+
+  Styles for this page are in style.css section 20.
+-->
+<body data-page="robots.html">
+
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo"><span>IRON</span>IC</div>
+    <div class="topbar-number mono">FTC #14226</div>
+  </div>
+  <nav class="topbar-links">
+    <a class="nav-link type-button" href="index.html">Overview</a>
+    <a class="nav-link type-button" href="team.html">Team</a>
+    <a class="nav-link type-button" href="events.html">Events</a>
+    <a class="nav-link type-button" href="robots.html">Robots</a>
+    <a class="nav-link type-button" href="history.html">History</a>
+    <a class="nav-link type-button" href="sponsors.html">Sponsors</a>
+  </nav>
+  <div class="topbar-meta type-caption mono">
+    Season 2026–27<br>
+    BIOBUZZ
+  </div>
+</header>
+
+  <main>
+
+<div class="page active" id="page-robots">
+
+  <!-- HERO: headline + countdown -->
+  <div class="robots-hero">
+    <div class="robots-kicker type-caption mono">2026–27 · BIOBUZZ Robot</div>
+    <h1 class="robots-title type-headline">Coming soon to a <span>competition near you</span></h1>
+
+    <div class="countdown-card wide">
+      <div class="countdown-label mono">Countdown to Next Competition</div>
+      <div class="countdown-digits">
+        <div class="countdown-unit">
+          <div class="countdown-num" id="rb-days">--</div>
+          <div class="countdown-sublabel mono">Days</div>
+        </div>
+      </div>
+      <!-- text filled in from NEXT_COMP_LABEL in script.js -->
+      <div class="countdown-event mono js-next-comp-label">&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- PAST PORTFOLIOS -->
+  <div class="robots-content">
+
+    <div class="events-section-title type-caption">Past Portfolios</div>
+
+    <div class="portfolio-table">
+
+      <!-- column headings -->
+      <div class="portfolio-head type-caption">
+        <span>Season</span>
+        <span>Game</span>
+        <span class="portfolio-head-action">Portfolio</span>
+      </div>
+
+      <!-- 2025–26 · DECODE -->
+      <details class="portfolio-row" data-pdf="portfolios/2025-26-decode.pdf">
+        <summary>
+          <span class="portfolio-season mono">2025–26</span>
+          <span class="portfolio-game">DECODE</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="DECODE 2025–26 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2025-26-decode.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2025-26-decode.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2024–25 · Into the Deep -->
+      <details class="portfolio-row" data-pdf="portfolios/2024-25-into-the-deep.pdf">
+        <summary>
+          <span class="portfolio-season mono">2024–25</span>
+          <span class="portfolio-game">Into the Deep℠</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="Into the Deep 2024–25 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2024-25-into-the-deep.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2024-25-into-the-deep.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2023–24 · CENTERSTAGE -->
+      <details class="portfolio-row" data-pdf="portfolios/2023-24-centerstage.pdf">
+        <summary>
+          <span class="portfolio-season mono">2023–24</span>
+          <span class="portfolio-game">CENTERSTAGE</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="CENTERSTAGE 2023–24 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2023-24-centerstage.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2023-24-centerstage.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2022–23 · POWERPLAY -->
+      <details class="portfolio-row" data-pdf="portfolios/2022-23-powerplay.pdf">
+        <summary>
+          <span class="portfolio-season mono">2022–23</span>
+          <span class="portfolio-game">POWERPLAY</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="POWERPLAY 2022–23 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2022-23-powerplay.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2022-23-powerplay.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2021–22 · Freight Frenzy -->
+      <details class="portfolio-row" data-pdf="portfolios/2021-22-freight-frenzy.pdf">
+        <summary>
+          <span class="portfolio-season mono">2021–22</span>
+          <span class="portfolio-game">Freight Frenzy</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="Freight Frenzy 2021–22 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2021-22-freight-frenzy.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2021-22-freight-frenzy.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2020–21 · Ultimate Goal -->
+      <details class="portfolio-row" data-pdf="portfolios/2020-21-ultimate-goal.pdf">
+        <summary>
+          <span class="portfolio-season mono">2020–21</span>
+          <span class="portfolio-game">Ultimate Goal</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="Ultimate Goal 2020–21 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2020-21-ultimate-goal.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2020-21-ultimate-goal.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2019–20 · Skystone -->
+      <details class="portfolio-row" data-pdf="portfolios/2019-20-skystone.pdf">
+        <summary>
+          <span class="portfolio-season mono">2019–20</span>
+          <span class="portfolio-game">Skystone</span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="Skystone 2019–20 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2019-20-skystone.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2019-20-skystone.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2018–19 · Rover Ruckus (first competitive season) -->
+      <details class="portfolio-row" data-pdf="portfolios/2018-19-rover-ruckus.pdf">
+        <summary>
+          <span class="portfolio-season mono">2018–19</span>
+          <span class="portfolio-game">Rover Ruckus <span class="type-caption text-pink">First Season</span></span>
+          <span class="portfolio-action type-button">
+            <span class="when-closed">View</span><span class="when-open">Hide</span>
+            <span class="portfolio-chevron">▾</span>
+          </span>
+        </summary>
+        <div class="portfolio-panel">
+          <iframe class="portfolio-frame" title="Rover Ruckus 2018–19 portfolio"></iframe>
+          <div class="portfolio-links type-caption mono">
+            <a href="portfolios/2018-19-rover-ruckus.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+            <a href="portfolios/2018-19-rover-ruckus.pdf" download>Download ↓</a>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+
+</div>
+
+</main>
+
+<!-- RGB light strip, cycles through site colors at the very bottom of the page -->
+<div class="rgb-strip"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
