@@ -9,31 +9,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* PHOTOS TEMPORARILY REMOVED — with no photo above it, the season
-     heading doesn't need its top gap, and with no photo-log column
-     on the right, the founding block doesn't need to reserve space
-     for one. Delete this whole <style> block when photos come back. */
-  .season-heading-row { margin-top: 0; }
-  .season-block.stub { padding-right: 0; }
+  /* Placeholder version of the award image square — same size as
+     .award-image (style.css section 17), but a dashed empty box
+     with a label instead of a linked image. Swap
+     <div class="award-image placeholder">...</div> for
+     <div class="award-image"><img src="..."></div> once the real
+     award photo is ready. */
+  .award-image.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-style: dashed;
+    color: var(--text-muted);
+    padding: 8px;
+  }
 </style>
 </head>
 <!--
   PAST SEASONS / HISTORY PAGE  —  MOCKUP DRAFT
 
-  *** PHOTOS ARE TEMPORARILY REMOVED FROM THIS PAGE ***
-  The main season photos, award images and photo-log columns were
-  all taken out for now — text and award names only. To bring them
-  back, for each season:
-    - put a <div class="season-photo"><img src="..."></div> (or the
-      .season-photo.placeholder version) back at the top of
-      .season-main
-    - put <div class="award-image"><img src="..."></div> back as the
-      first child of each .award-item
-    - put the <div class="season-gallery"> ... </div> photo-log
-      column back right after .season-main
-    - delete the <style> block in <head>
-  Image files still in the project: 2025-2026-TeamPic.jpg,
-  2024-2025-TeamPic.jpg, 2024-2025-ConnectAward.jpg.
+  *** ALL PHOTOS ARE PLACEHOLDERS FOR NOW ***
+  Every linked image (team photos, award photos) was swapped for an
+  empty dashed placeholder box. Image files still in the project for
+  when they go back in: 2025-2026-TeamPic.jpg, 2024-2025-TeamPic.jpg,
+  2024-2025-ConnectAward.jpg.
 
   What's on this page, top to bottom:
     1. Top bar (nav), same one every page uses (note: style.css
@@ -45,17 +45,20 @@
        faint year watermark on this page (unlike the others).
     3. History content: a slightly-lighter full-height bar on the
        very left edge of the screen holding the sticky season tabs,
-       then one .season-block per season — write-up + awards, capped
-       to a readable width and centered. Newest season first, down
-       through the founding year.
+       then one .season-block per season — main photo + write-up +
+       awards (capped to a readable width and centered in the gap
+       between that locator bar and the gallery, not stuck to the
+       left), and a "photo log" placeholder on the right, sized by
+       --gallery-w and pushed flush against the true edge of the
+       screen. Newest season first, down through the founding year.
 
-  Still a layout mockup, not final content — every .season-desc is a
-  filler paragraph and every award description is a filler too.
-  Seasons with nothing to show yet just say "Unknown" under Awards.
-  No new font sizes were introduced anywhere on this page: every bit
-  of text reuses one of the existing "type-" classes from style.css
-  section 15 (or, where noted, just the plain body font already used
-  site-wide).
+  Real write-ups and awards are in for DECODE (2025–26) and Into the
+  Deep (2024–25). Every older .season-desc is still a filler
+  paragraph — search "Lorem" for the rest. Seasons with nothing to
+  show yet just say "Unknown" under Awards. No new font sizes were
+  introduced anywhere on this page: every bit of text reuses one of
+  the existing "type-" classes from style.css section 15 (or, where
+  noted, just the plain body font already used site-wide).
 
   Season list, newest to oldest:
     2025–26  DECODE
@@ -71,9 +74,24 @@
   happened yet, so it's not history. Once it wraps, copy the
   2025–26 block as a template for it.
 
+  How to add detail to a season once you're ready:
+  1. Swap that season's .season-photo.placeholder div for
+     <div class="season-photo"><img src="..." alt="..."></div>.
+  2. Replace the lorem ipsum .season-desc paragraph with the real
+     write-up.
+  3. Fill in .season-awards (or swap the whole block for the .tbd
+     version if there's nothing to list — see 2023–24 for an
+     example of the empty state). Each award is an image (swap the
+     .award-image.placeholder div for
+     <div class="award-image"><img src="..."></div>), the award
+     name, and a sentence on how the team earned it.
+  4. Once Chase has the season's photo-log composite image sized to
+     match the write-up, swap the .gallery-photolog.placeholder div
+     for a real <div class="gallery-photolog"><img src="..."></div>.
+
   How to add a whole new season (e.g. once 2026–27 wraps):
   1. Copy one whole <div class="season-block" id="season-XXXX-XX">
-     block and swap in that season's content.
+     block and swap in that season's content per the steps above.
   2. Copy one <a class="locator-link"> inside .history-locator-inner
      and point its href at that same #season-XXXX-XX id.
   3. Keep both the locator links and the season blocks newest to
@@ -165,31 +183,42 @@
       <div class="season-block" id="season-2025-26">
         <div class="season-main">
 
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
+
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">DECODE</span>
             <span class="season-years type-caption mono">2025–26</span>
           </div>
 
           <p class="season-desc type-body text-dim">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
+            The 2025 season DECODE was a successful season. Although we didn't make it to
+            States again this year, we remained high in the league rankings! The rankings aren't
+            what made this season so successful for us as a team, though. Throughout the season,
+            we learned a lot about many different systems, sensors, CAD, and coding overall.
+            DECODE expanded the team's knowledge and allowed us to grow as engineers.
           </p>
 
           <div class="season-awards">
             <div class="season-awards-title type-caption">Awards</div>
             <div class="award-list">
               <div class="award-item">
+                <div class="award-image placeholder"><span class="type-caption mono">Award Photo</span></div>
                 <div class="award-body">
-                  <span class="award-name type-names">Control Award</span>
-                  <p class="award-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                  <span class="award-name type-names">2nd Place Control Award</span>
+                  <p class="award-desc">During the DECODE season, we received 2nd place for the Control Award. We received this award for our use of sensors and our systems to solve the game's challenges and enhance the robot's performance.</p>
                 </div>
               </div>
             </div>
           </div>
 
+        </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
         </div>
       </div>
 
@@ -197,37 +226,50 @@
       <div class="season-block" id="season-2024-25">
         <div class="season-main">
 
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
+
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">Into the Deep℠</span>
             <span class="season-years type-caption mono">2024–25</span>
           </div>
 
           <p class="season-desc type-body text-dim">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
+            During the 2024 season, INTO THE DEEP, we got the furthest our team has ever gotten
+            in competition by making it to the State Championship. We also received the 1st place
+            Connect Award.
           </p>
 
           <div class="season-awards">
             <div class="season-awards-title type-caption">Awards</div>
             <div class="award-list">
               <div class="award-item">
+                <div class="award-image placeholder"><span class="type-caption mono">Award Photo</span></div>
                 <div class="award-body">
-                  <span class="award-name type-names">Connect Award</span>
-                  <p class="award-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                  <span class="award-name type-names">1st Place Connect Award</span>
+                  <p class="award-desc">During the INTO THE DEEP season, we received 1st place for the Connect Award. We received this award for building our relationships and mentorships with the STEM community.</p>
                 </div>
               </div>
             </div>
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2023–24 · CENTERSTAGE ============ -->
       <div class="season-block" id="season-2023-24">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">CENTERSTAGE</span>
@@ -247,11 +289,21 @@
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2022–23 · POWERPLAY ============ -->
       <div class="season-block" id="season-2022-23">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">POWERPLAY</span>
@@ -271,11 +323,21 @@
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2021–22 · Freight Frenzy ============ -->
       <div class="season-block" id="season-2021-22">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">Freight Frenzy</span>
@@ -295,11 +357,21 @@
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2020–21 · Ultimate Goal ============ -->
       <div class="season-block" id="season-2020-21">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">Ultimate Goal</span>
@@ -319,11 +391,21 @@
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2019–20 · Skystone ============ -->
       <div class="season-block" id="season-2019-20">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">Skystone</span>
@@ -343,11 +425,21 @@
           </div>
 
         </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
+        </div>
       </div>
 
       <!-- ============ 2018–19 · Rover Ruckus (first competitive season) ============ -->
       <div class="season-block" id="season-2018-19">
         <div class="season-main">
+
+          <div class="season-photo placeholder">
+            <span class="type-caption text-dim">PLACEHOLDER — main season photo</span>
+          </div>
 
           <div class="season-heading-row">
             <span class="season-game type-subhead mono">Rover Ruckus</span>
@@ -367,6 +459,12 @@
             Unknown
           </div>
 
+        </div>
+
+        <div class="season-gallery">
+          <div class="gallery-photolog placeholder">
+            <span class="type-caption mono">Photo Log</span>
+          </div>
         </div>
       </div>
 
