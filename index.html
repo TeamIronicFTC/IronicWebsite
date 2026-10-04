@@ -22,10 +22,11 @@
   - Bio paragraph, edit the <p class="lead"> text below.
   - Stat numbers (Seasons, FIRST Events, Rookie Year, Team #), edit
     the .hero-stat-num spans.
-  - Countdown date, set NEXT_COMP_DATE in script.js. The card now
-    only shows Days (hours/min/sec were dropped from both here and
-    script.js) — so it only needs re-checking once a day, not once
-    a second.
+  - Countdown date AND the event label under it both come from
+    NEXT_COMP_DATE / NEXT_COMP_LABEL in script.js now (the label
+    gets dropped into the "js-next-comp-label" line below), and the
+    Robots page countdown reads the same two lines — change them
+    once there. Both countdowns only show Days.
   - "14226" under the team name uses type-caption-heading now
     (bumped up from type-subhead) so it reads bigger.
   - The only CTA left under the paragraph now is "Newsletter →" —
@@ -59,6 +60,7 @@
     <a class="nav-link type-button" href="index.html">Overview</a>
     <a class="nav-link type-button" href="team.html">Team</a>
     <a class="nav-link type-button" href="events.html">Events</a>
+    <a class="nav-link type-button" href="robots.html">Robots</a>
     <a class="nav-link type-button" href="history.html">History</a>
     <a class="nav-link type-button" href="sponsors.html">Sponsors</a>
   </nav>
@@ -165,7 +167,8 @@
             <div class="countdown-sublabel mono">Days</div>
           </div>
         </div>
-        <div class="countdown-event mono">Kick Off Event · 9/12/26</div>
+        <!-- text filled in from NEXT_COMP_LABEL in script.js -->
+        <div class="countdown-event mono js-next-comp-label">&nbsp;</div>
       </div>
 
     </div>
