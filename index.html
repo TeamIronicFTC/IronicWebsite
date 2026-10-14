@@ -3,11 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team IRONIC</title>
+<title>Team IRONIC #14226 | FTC Robotics – Manatee School for the Arts</title>
+<meta name="description" content="Team IRONIC (IRONIC Robotics) is FIRST Tech Challenge team #14226 from Manatee School for the Arts in Palmetto, Florida. Competing in the 2026–27 BIOBUZZ season.">
+<link rel="canonical" href="https://ironicrobotics.org/">
+<link rel="icon" type="image/png" href="gear.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team IRONIC">
+<meta property="og:title" content="Team IRONIC #14226 | FTC Robotics – Manatee School for the Arts">
+<meta property="og:description" content="Team IRONIC (IRONIC Robotics) is FIRST Tech Challenge team #14226 from Manatee School for the Arts in Palmetto, Florida. Competing in the 2026–27 BIOBUZZ season.">
+<meta property="og:url" content="https://ironicrobotics.org/">
+<meta property="og:image" content="https://ironicrobotics.org/2025-2026-TeamPic.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Team IRONIC",
+  "alternateName": [
+    "IRONIC Robotics",
+    "IRONIC FTC",
+    "FTC Team 14226",
+    "Team IRONIC 14226"
+  ],
+  "url": "https://ironicrobotics.org/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsTeam",
+  "name": "Team IRONIC",
+  "alternateName": [
+    "IRONIC",
+    "IRONIC Robotics",
+    "Ironic FTC",
+    "FTC Team 14226",
+    "IRONIC 14226"
+  ],
+  "description": "Team IRONIC (IRONIC Robotics) is FIRST Tech Challenge team #14226 from Manatee School for the Arts in Palmetto, Florida. Competing in the 2026–27 BIOBUZZ season.",
+  "sport": "Robotics",
+  "url": "https://ironicrobotics.org/",
+  "logo": "https://ironicrobotics.org/gear.png",
+  "image": "https://ironicrobotics.org/2025-2026-TeamPic.jpg",
+  "foundingDate": "2017",
+  "memberOf": {
+    "@type": "SportsOrganization",
+    "name": "FIRST Tech Challenge",
+    "url": "https://www.firstinspires.org/robotics/ftc"
+  },
+  "parentOrganization": {
+    "@type": "EducationalOrganization",
+    "name": "Manatee School for the Arts"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Palmetto",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  "sameAs": []
+}
+</script>
 </head>
 <!--
   HOME / OVERVIEW PAGE
@@ -22,19 +82,18 @@
   - Bio paragraph, edit the <p class="lead"> text below.
   - Stat numbers (Seasons, FIRST Events, Rookie Year, Team #), edit
     the .hero-stat-num spans.
-  - Countdown date AND the event label under it both come from
-    NEXT_COMP_DATE / NEXT_COMP_LABEL in script.js now (the label
-    gets dropped into the "js-next-comp-label" line below), and the
-    Robots page countdown reads the same two lines — change them
-    once there. Both countdowns only show Days.
+  - Countdown date AND the event label under it both come from the
+    COMP_SCHEDULE list at the top of script.js. It moves on to the
+    next event by itself once one passes, and the Robots page
+    countdown reads the same list. Both countdowns only show Days.
   - "14226" under the team name uses type-caption-heading now
     (bumped up from type-subhead) so it reads bigger.
-  - The only CTA left under the paragraph now is "Newsletter →" —
-    the old "Meet the Team →" button that sat next to it was
-    removed. It still has data-modal="newsletter" instead of an
-    onclick navigation — script.js section 4 turns that into a
-    blurred popup instead of a page jump. See style.css section 18
-    and newsletter.html for the rest of that setup.
+  - The only CTA under the paragraph is "Newsletter →". It reuses
+    the .sponsor-cta-btn button style (style.css section 19) instead
+    of inline styles, and data-modal="newsletter" makes script.js
+    section 4 open the blurred popup instead of jumping pages.
+  - Layout for this block is in style.css section 7 (desktop) and
+    section 23 (phone: no countdown, stats 2x2, gears moved).
   - Full notes on this file's CSS are in style-guide.pdf, sections
     6 through 10.
   - Text sizing (headline, subhead, body copy, caption heading,
@@ -46,6 +105,20 @@
     buttons, just picked from the existing "type-" options rather
     than a new size. Applies to every page's topbar, not just this
     one.
+
+  SEO (search results):
+  - The <title>, meta description, canonical link and og: tags in
+    <head> control how this page shows up on Google and when the
+    link is shared. Every page has its own set.
+  - The two <script type="application/ld+json"> blocks tell Google
+    the site's name ("Team IRONIC") plus the other names people
+    search for (alternateName) and the team's details. Add the
+    team's Instagram / YouTube links to the "sameAs" list once
+    you want them included.
+  - The hidden <h1> right inside the hero banner is the page's
+    main heading for Google and screen readers. It's visually
+    hidden (the big IRONIC title stays a div so its styling doesn't
+    change).
 -->
 <body data-page="index.html">
 
@@ -78,6 +151,9 @@
        gears hanging off the bottom corners -->
   <div class="hero-banner-wrap">
 
+    <!-- main heading for Google / screen readers, visually hidden -->
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">Team IRONIC — FTC Robotics Team #14226 at Manatee School for the Arts</h1>
+
     <div class="hero-desktop">
 
       <!-- title block -->
@@ -109,17 +185,17 @@
 
   </div>
 
-  <!-- OVERVIEW: lead paragraph + stat pills + CTA (left) / countdown card (right) -->
-  <div class="overview-hero" style="grid-template-columns: 1fr; border-right: none; border-bottom: none; background: transparent; position: relative; z-index: 2; align-items: start; min-height: 0; margin-top: -100px;">
+  <!-- OVERVIEW: lead paragraph + stats + Newsletter (left) / countdown card (right).
+       Layout lives in style.css section 7 (desktop) and 23 (phone). -->
+  <div class="home-overview">
+    <div class="home-overview-row">
 
-    <div class="hero-text" style="border-right: none; padding: 0px 340px 40px 340px; background: transparent; display: flex; flex-direction: row; align-items: flex-end; justify-content: flex-start; gap: 60px; flex-wrap: wrap;">
-
-      <!-- left: paragraph + stats -->
-      <div style="flex: 1 1 480px; min-width: 0;">
-        <p class="lead type-body" style="max-width: 640px; margin-bottom: 28px;">We are team IRONIC located at Manatee School for the Arts! We have a mission to bring FIRST values and engineering to our local community while participating in the FTC challenges. Our biggest accomplishments include making it to the State Championship during the 2024 season "Into the Deep℠" as well as receiving the 2nd place Connect Award during the same season and the Control Award during the 2025 season.</p>
+      <!-- left: paragraph + stats + newsletter -->
+      <div class="home-copy">
+        <p class="lead type-body">We are Team IRONIC, FIRST Tech Challenge robotics team #14226, located at Manatee School for the Arts in Palmetto, Florida! We have a mission to bring FIRST values and engineering to our local community while participating in the FTC challenges. Our biggest accomplishments include making it to the State Championship during the 2024 season "Into the Deep℠" as well as receiving the 2nd place Connect Award during the same season and the Control Award during the 2025 season.</p>
 
         <!-- fact box / stats bar -->
-        <div class="hero-stats" style="position: relative; z-index: 3;">
+        <div class="hero-stats">
           <div class="hero-stat">
             <span class="hero-stat-num type-caption-heading">8</span>
             <span class="hero-stat-label type-caption">Seasons</span>
@@ -141,23 +217,13 @@
           </div>
         </div>
 
-        <div style="display: flex; flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 24px;">
-          <button type="button" class="type-button" data-modal="newsletter" style="
-            padding: 12px 27px;
-            background: transparent;
-            color: var(--teal);
-            border: 2px solid var(--teal);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-          " onmouseover="this.style.background='var(--teal)'; this.style.color='var(--bg)'; this.style.borderColor='var(--teal)';" onmouseout="this.style.background='transparent'; this.style.color='var(--teal)'; this.style.borderColor='var(--teal)';">
-            Newsletter →
-          </button>
+        <div class="home-cta-row">
+          <button type="button" class="type-button sponsor-cta-btn" data-modal="newsletter">Newsletter →</button>
         </div>
       </div>
 
-      <!-- right side: countdown card, lines up with the stats bar automatically -->
-      <div class="countdown-card" id="countdownCard" style="flex: 0 0 380px; align-self: flex-start; margin-top: 40px;">
+      <!-- right: countdown card (hidden on phones) -->
+      <div class="countdown-card home-countdown" id="countdownCard">
         <div class="countdown-label mono">
           Countdown to Next Competition
         </div>
@@ -167,7 +233,7 @@
             <div class="countdown-sublabel mono">Days</div>
           </div>
         </div>
-        <!-- text filled in from NEXT_COMP_LABEL in script.js -->
+        <!-- text filled in by script.js from the COMP_SCHEDULE list -->
         <div class="countdown-event mono js-next-comp-label">&nbsp;</div>
       </div>
 

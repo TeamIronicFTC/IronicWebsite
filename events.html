@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team IRONIC</title>
+<title>2026–27 Season Schedule | IRONIC FTC #14226</title>
+<meta name="description" content="Where to find Team IRONIC (FTC #14226) this BIOBUZZ season: scrimmages, league meets, judging and the league championship.">
+<link rel="canonical" href="https://ironicrobotics.org/events.html">
+<link rel="icon" type="image/png" href="gear.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team IRONIC">
+<meta property="og:title" content="2026–27 Season Schedule | IRONIC FTC #14226">
+<meta property="og:description" content="Where to find Team IRONIC (FTC #14226) this BIOBUZZ season: scrimmages, league meets, judging and the league championship.">
+<meta property="og:url" content="https://ironicrobotics.org/events.html">
+<meta property="og:image" content="https://ironicrobotics.org/2025-2026-TeamPic.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -16,6 +26,16 @@
   .event-card.past:hover { transform: none; border-color: var(--border); }
   .event-card.past .event-date-block > div,
   .event-card.past .event-name,
+  /* Venue address under the school name: links to Google Maps. */
+  .event-address {
+    display: inline-block;
+    margin-top: var(--space-4);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .event-address:hover { color: var(--teal); }
+
   .event-card.past .event-location {
     text-decoration: line-through;
     text-decoration-thickness: 2px;
@@ -48,10 +68,17 @@
   it out (styled in the <style> block at the top of this file). The
   Kick Off Event is marked past.
 
+  Venues: each event-location shows the school name, then its
+  address as a link that opens Google Maps. To change one, edit both
+  the visible address and the query in the link.
+
   Top nav links (below) use type-button now instead of
   type-caption-heading — same smaller size as the site's other
   buttons, just picked from the existing "type-" options. Applies to
   every page's topbar, not just this one.
+
+  SEO: the <title>, meta description, canonical and og: tags in
+  <head> are this page's own search-result / link-preview info.
 
   Full notes on this file's CSS are in style-guide.pdf, section 11.
 -->
@@ -85,12 +112,12 @@
     <h1 class="page-title type-headline" style="white-space: nowrap; position: relative; z-index: 3;">Season Schedule</h1>
 
     <!-- top-right gear -->
-    <div style="position: absolute; top: 0; right: 0; width: 600px; height: 600px; overflow: hidden; pointer-events: none; z-index: 1;">
+    <div class="corner-gear corner-gear-right" style="position: absolute; top: 0; right: 0; width: 600px; height: 600px; overflow: hidden; pointer-events: none; z-index: 1;">
       <img src="gear.png" alt="" style="position: absolute; top: -600px; right: -600px; width: 1200px; height: 1200px; opacity: 0.35; animation: spin-cw 20s linear infinite;">
     </div>
 
     <!-- top-left gear -->
-    <div style="position: absolute; top: 0; left: 0; width: 600px; height: 600px; overflow: hidden; pointer-events: none; z-index: 1;">
+    <div class="corner-gear corner-gear-left" style="position: absolute; top: 0; left: 0; width: 600px; height: 600px; overflow: hidden; pointer-events: none; z-index: 1;">
       <img src="gear.png" alt="" style="position: absolute; top: -600px; left: -600px; width: 1200px; height: 1200px; opacity: 0.35; animation: spin-ccw 20s linear infinite;">
     </div>
   </div>
@@ -98,8 +125,8 @@
   <div class="events-content">
 
     <p class="lead type-body events-intro">
-      Here's where to find Team IRONIC this season. Dates below come straight from our league, we'll
-      update this page the moment venues and any remaining dates are confirmed, so check back before you head out.
+      Here's where to find Team IRONIC this season. Dates and venues come straight from our league.
+      Tap an address for directions, and check back before you head out in case anything changes.
     </p>
 
     <div class="events-section-title type-caption">2026–27 Competition Schedule</div>
@@ -126,7 +153,7 @@
       <div class="event-card">
         <div class="event-date-block">
           <div class="event-month mono">Oct</div>
-          <div class="event-day multi type-caption-heading">17/24</div>
+          <div class="event-day type-caption-heading">17</div>
           <div class="event-year mono">2026</div>
         </div>
         <div class="event-body">
@@ -134,7 +161,7 @@
             <span class="event-name">Scrimmage</span>
             <span class="type-caption text-dim">Scrimmage</span>
           </div>
-          <div class="event-location tbd mono">Location TBD</div>
+          <div class="event-location mono">Azalea Middle School<br><a class="event-address" href="https://www.google.com/maps/search/?api=1&amp;query=Azalea+Middle+School%2C+7855+22nd+Ave+N%2C+St.+Petersburg%2C+FL+33710" target="_blank" rel="noopener">7855 22nd Ave N, St. Petersburg, FL 33710 ↗</a></div>
         </div>
       </div>
 
@@ -150,7 +177,7 @@
             <span class="event-name">Meet 1</span>
             <span class="type-caption text-pink">League Meet</span>
           </div>
-          <div class="event-location tbd mono">Location TBD</div>
+          <div class="event-location mono">Osceola High School<br><a class="event-address" href="https://www.google.com/maps/search/?api=1&amp;query=Osceola+High+School%2C+9751+98th+Street+North%2C+Seminole%2C+FL+33777" target="_blank" rel="noopener">9751 98th Street North, Seminole, FL 33777 ↗</a></div>
         </div>
       </div>
 
@@ -158,7 +185,7 @@
       <div class="event-card">
         <div class="event-date-block">
           <div class="event-month mono">Dec</div>
-          <div class="event-day type-caption-heading">5</div>
+          <div class="event-day type-caption-heading">12</div>
           <div class="event-year mono">2026</div>
         </div>
         <div class="event-body">
@@ -166,7 +193,7 @@
             <span class="event-name">Meet 2</span>
             <span class="type-caption text-pink">League Meet</span>
           </div>
-          <div class="event-location tbd mono">Location TBD</div>
+          <div class="event-location mono">Dunedin High School<br><a class="event-address" href="https://www.google.com/maps/search/?api=1&amp;query=Dunedin+High+School%2C+1651+Pinehurst+Blvd%2C+Dunedin%2C+FL+34698" target="_blank" rel="noopener">1651 Pinehurst Blvd, Dunedin, FL 34698 ↗</a></div>
         </div>
       </div>
 
@@ -174,7 +201,7 @@
       <div class="event-card">
         <div class="event-date-block">
           <div class="event-month mono">Jan</div>
-          <div class="event-day multi type-caption-heading">9/16</div>
+          <div class="event-day type-caption-heading">23</div>
           <div class="event-year mono">2027</div>
         </div>
         <div class="event-body">
@@ -182,7 +209,7 @@
             <span class="event-name">Meet 3</span>
             <span class="type-caption text-pink">League Meet</span>
           </div>
-          <div class="event-location tbd mono">Location TBD</div>
+          <div class="event-location mono">Hollins High School<br><a class="event-address" href="https://www.google.com/maps/search/?api=1&amp;query=Hollins+High+School%2C+4940+62nd+St.%2C+Kenneth+City%2C+FL+33709" target="_blank" rel="noopener">4940 62nd St., Kenneth City, FL 33709 ↗</a></div>
         </div>
       </div>
 
@@ -214,7 +241,7 @@
             <span class="event-name">League Championship</span>
             <span class="type-caption text-teal">Championship</span>
           </div>
-          <div class="event-location tbd mono">Location TBD</div>
+          <div class="event-location mono">Palm Harbor University High School<br><a class="event-address" href="https://www.google.com/maps/search/?api=1&amp;query=Palm+Harbor+University+High+School%2C+1900+Omaha+St.%2C+Palm+Harbor%2C+FL+34683" target="_blank" rel="noopener">1900 Omaha St., Palm Harbor, FL 34683 ↗</a></div>
         </div>
       </div>
 

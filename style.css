@@ -23,6 +23,10 @@
    18. Newsletter card + modal overlay
    19. Sponsors page
    20. Robots page
+   21. Keyboard focus + pressed states
+   22. Reduced motion
+   23. Responsive: tablet nav + phone layout
+   24. Hidden drafts / empty sections
 */
 
 
@@ -49,6 +53,24 @@
   --text-dim: #9C9B9A;
   --text-muted: #646363;
   --border: rgba(100,99,99,0.25);
+
+  /* Spacing scale (8pt rhythm, 4px for fine detail). Every padding,
+     margin and gap in this file uses one of these — no one-off numbers. */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+
+  /* Corners: the site is square on purpose (no rounded "bubbles"). */
+  --radius: 0;
 }
 
 
@@ -89,8 +111,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 24px;
-  padding: 0 32px;
+  gap: var(--space-24);
+  padding: 0 var(--space-32);
   z-index: 200;
 }
 
@@ -114,21 +136,21 @@ body::before {
   font-size: 9px;
   color: var(--pink);
   letter-spacing: 0.15em;
-  margin-top: 3px;
+  margin-top: var(--space-4);
 }
 
 .topbar-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-4);
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
-  padding: 10px 18px;
+  padding: var(--space-8) var(--space-16);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
   border-bottom: 2px solid transparent;
   color: var(--text-dim);
   text-transform: uppercase;
@@ -143,7 +165,6 @@ body::before {
   border-bottom-color: var(--teal);
 }
 
-.nav-link:nth-child(even):hover { color: var(--pink); border-bottom-color: var(--pink); }
 
 .topbar-meta {
   color: var(--text-muted);
@@ -178,7 +199,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 
 /* 6. Page headlines */
 .page-header {
-  padding: 64px 56px 40px;
+  padding: var(--space-64) var(--space-56) var(--space-40);
   position: relative; overflow: hidden;
   border-bottom: 1px solid var(--border);
 }
@@ -186,16 +207,38 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .page-title { color: var(--text); }
 
 
-/* 7. Index - General overview */
-.overview-hero {
-  display: grid; grid-template-columns: 1fr 420px;
-  gap: 0; align-items: stretch; min-height: 380px;
-  border-bottom: 1px solid var(--border);
+/* 7. Index - General overview
+   The block under the hero: paragraph + stats + Newsletter button on
+   the left, countdown card on the right. These used to be inline
+   styles in index.html; they live here now so the phone layout
+   (section 23) can override them. The side padding centers a
+   1240px content area on wide screens (= the old 340px gutters at
+   1920px) and never drops below 56px. */
+.home-overview {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--space-96) * -1);
 }
-.hero-text {
-  padding: 56px 56px 48px;
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; justify-content: space-between;
+.home-overview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-64);
+  padding: 0 max(var(--space-56), calc((100% - 1240px) / 2)) var(--space-40);
+}
+.home-copy { flex: 1 1 480px; min-width: 0; }
+.home-copy .lead { max-width: 640px; margin-bottom: var(--space-32); }
+.home-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-16);
+  margin-top: var(--space-24);
+}
+.home-countdown {
+  flex: 0 0 380px;
+  align-self: flex-start;
+  margin-top: var(--space-40);
 }
 
 
@@ -209,7 +252,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 
 .hero-desktop {
   position: relative;
-  padding: 56px 56px 0;
+  padding: var(--space-56) var(--space-56) 0;
   min-height: 420px;
 }
 
@@ -219,7 +262,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   align-items: flex-start;
   position: relative;
   z-index: 3;
-  margin-bottom: 28px;
+  margin-bottom: var(--space-32);
 }
 
 .hero-teamnum {
@@ -227,7 +270,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   text-decoration: underline;
   text-decoration-color: var(--border);
   text-underline-offset: 6px;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-8);
 }
 
 .hero-teamname { color: var(--teal); }
@@ -246,19 +289,19 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   display: flex;
   align-items: stretch;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
   width: fit-content;
   position: relative;
   z-index: 3;
   background: var(--surface);
-  margin-bottom: 40px;
+  margin-bottom: var(--space-40);
 }
 .hero-stat {
-  padding: 14px 26px;
+  padding: var(--space-16) var(--space-24);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--space-4);
 }
 .hero-stat-num { color: var(--pink); }
 .hero-stat-label { color: var(--pink); opacity: 0.7; }
@@ -286,7 +329,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   z-index: 3;
   height: 1px;
   background: linear-gradient(90deg, var(--teal), var(--pink), transparent);
-  margin: 0 -56px;
+  margin: 0 calc(var(--space-56) * -1);
 }
 
 
@@ -301,8 +344,8 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .countdown-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 40px 40px 36px;
+  border-radius: var(--radius);
+  padding: var(--space-40) var(--space-40) var(--space-40);
 }
 .countdown-label {
   font-size: 13px;
@@ -313,21 +356,21 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 10px;
-  margin-bottom: 32px;
+  gap: var(--space-8);
+  margin-bottom: var(--space-32);
 }
 
 .countdown-digits {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 .countdown-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 .countdown-num {
   font-family: "Inter", sans-serif;
@@ -337,8 +380,8 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   letter-spacing: 0.02em;
   line-height: 1;
   border: 1px solid rgba(255,45,120,0.4);
-  border-radius: 10px;
-  padding: 10px 6px;
+  border-radius: var(--radius);
+  padding: var(--space-8) var(--space-8);
   min-width: 58px;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -356,38 +399,38 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   color: var(--teal);
   letter-spacing: 0.08em;
   text-align: center;
-  margin-top: 22px;
+  margin-top: var(--space-24);
 }
 
 
 /* 11. Events overall page */
 .events-section-title {
   color: var(--text-muted);
-  margin-bottom: 24px; display: flex; align-items: center; gap: 16px;
+  margin-bottom: var(--space-24); display: flex; align-items: center; gap: var(--space-16);
 }
 .events-section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
-.events-content { padding: 48px 56px 72px; max-width: 980px; margin: 0 auto; }
-.events-intro { margin-bottom: 40px; }
+.events-content { padding: var(--space-48) var(--space-56) var(--space-80); max-width: 980px; margin: 0 auto; }
+.events-intro { margin-bottom: var(--space-40); }
 
 .event-timeline {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 8px;
+  gap: var(--space-16);
+  margin-bottom: var(--space-8);
 }
 
 .event-card {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: var(--space-24);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 28px;
+  border-radius: var(--radius);
+  padding: var(--space-24) var(--space-32);
   transition: border-color 0.2s, transform 0.2s;
 }
-.event-card:hover { border-color: var(--teal-border); transform: translateX(4px); }
+.event-card:hover { border-color: var(--teal-border); }
 .event-card.featured {
   border-color: var(--teal);
   box-shadow: 0 0 0 1px var(--teal), 0 0 24px var(--teal-glow);
@@ -398,23 +441,23 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   width: 84px;
   text-align: center;
   border-right: 1px solid var(--border);
-  padding-right: 22px;
+  padding-right: var(--space-24);
 }
 .event-month {
   font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--pink);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-4);
 }
 .event-day { color: var(--text); }
 .event-day.multi { font-size: 19px; }
 .event-year {
-  font-size: 10px; color: var(--text-muted); margin-top: 3px;
+  font-size: 10px; color: var(--text-muted); margin-top: var(--space-4);
 }
 
 .event-body { flex: 1; min-width: 0; }
 .event-name-row {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  margin-bottom: 6px;
+  display: flex; align-items: center; gap: var(--space-8); flex-wrap: wrap;
+  margin-bottom: var(--space-8);
 }
 .event-name {
   font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.01em;
@@ -427,21 +470,20 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 
 
 /* 12. Team overall page */
-.team-content { padding: 48px 56px 72px; }
+.team-content { padding: var(--space-48) var(--space-56) var(--space-80); }
 .team-grid {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: center !important;
   width: 100% !important;
-  gap: 28px 24px; margin-bottom: 56px;
+  gap: var(--space-32) var(--space-24); margin-bottom: var(--space-56);
 }
 .team-card {
-  background: transparent; border: none; border-radius: 0;
-  overflow: visible; transition: transform 0.2s;
+  background: transparent; border: none; border-radius: var(--radius);
+  overflow: visible;
   width: 210px; flex-shrink: 0;
 }
-.team-card:hover { transform: translateY(-6px); }
-.team-card-img { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 4px; margin-bottom: 14px; }
+.team-card-img { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: var(--radius); margin-bottom: var(--space-16); }
 .team-card-img img {
   width: 100%; height: 100%; object-fit: cover;
   filter: saturate(0) brightness(0.6); transition: filter 0.35s;
@@ -460,11 +502,11 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .team-card.pink .team-card-img::before { background: var(--pink); }
 .team-card.blue .team-card-img::before { background: var(--teal); }
 .team-card-body { padding: 0; text-align: center; }
-.team-card-name { color: var(--text); margin-bottom: 4px; }
+.team-card-name { color: var(--text); margin-bottom: var(--space-4); }
 .team-card-role { font-size: 11px; font-weight: 500; color: var(--teal); text-transform: uppercase; letter-spacing: 0.06em; }
 .team-card.pink .team-card-role { color: var(--pink); }
 .team-card.blue .team-card-role { color: var(--teal); }
-.team-card-grade { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+.team-card-grade { font-size: 11px; color: var(--text-muted); margin-top: var(--space-4); }
 
 .team-content .events-section-title {
   justify-content: center;
@@ -482,7 +524,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(var(--pink), var(--teal));
-  border-radius: 2px;
+  border-radius: var(--radius);
 }
 
 
@@ -629,32 +671,32 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .history-locator-inner {
   position: sticky;
   top: 68px; /* sits right under the fixed topbar */
-  padding: 40px 20px;
+  padding: var(--space-40) var(--space-24);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-4);
 }
 .history-locator-label {
   color: var(--text-muted);
-  margin-bottom: 10px;
-  padding: 0 14px;
+  margin-bottom: var(--space-8);
+  padding: 0 var(--space-16);
 }
 .locator-link {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 10px 14px;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-16);
   border-left: 2px solid var(--border);
   color: var(--text-dim);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .locator-link:hover { color: var(--teal); border-left-color: var(--teal-dim); }
 .locator-link.active {
   color: var(--teal);
   border-left-color: var(--teal);
   background: var(--surface2);
-  border-radius: 0 8px 8px 0;
+  border-radius: var(--radius);
 }
 .locator-link.active .locator-game { color: var(--teal); opacity: 0.75; }
 
@@ -665,17 +707,17 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   --gallery-w: 460px;
   flex: 1;
   min-width: 0;
-  padding: 48px 0 96px 48px; /* no right padding — lets .season-gallery run flush to the screen edge */
+  padding: var(--space-48) 0 var(--space-96) var(--space-48); /* no right padding — lets .season-gallery run flush to the screen edge */
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: var(--space-64);
 }
 
 .season-block {
-  scroll-margin-top: 24px;
+  scroll-margin-top: var(--space-24);
   display: flex;
   align-items: stretch;
-  padding-bottom: 64px;
+  padding-bottom: var(--space-64);
   border-bottom: 1px solid var(--border);
 }
 .season-block:last-child { border-bottom: none; padding-bottom: 0; }
@@ -694,7 +736,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 
 .season-photo {
   aspect-ratio: 16/9;
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -707,49 +749,49 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   justify-content: center;
   color: var(--text-muted);
   text-align: center;
-  padding: 20px;
+  padding: var(--space-24);
 }
 
 .season-heading-row {
   display: flex;
   align-items: baseline;
-  gap: 14px;
+  gap: var(--space-16);
   flex-wrap: wrap;
-  margin-top: 24px;
+  margin-top: var(--space-24);
 }
 .season-game { color: var(--teal); }
 .season-years { color: var(--text-muted); }
 
-.season-desc { margin-top: 10px; }
+.season-desc { margin-top: var(--space-8); }
 
 .season-awards {
-  margin-top: 28px;
+  margin-top: var(--space-32);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px 26px;
+  border-radius: var(--radius);
+  padding: var(--space-24) var(--space-24);
 }
 .season-awards-title {
   color: var(--pink);
-  margin-bottom: 18px;
+  margin-bottom: var(--space-16);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
 }
-.award-list { display: flex; flex-direction: column; gap: 18px; }
-.award-item { display: flex; align-items: flex-start; gap: 16px; }
+.award-list { display: flex; flex-direction: column; gap: var(--space-16); }
+.award-item { display: flex; align-items: flex-start; gap: var(--space-16); }
 .award-image {
   flex-shrink: 0;
   width: 120px;
   height: 120px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface2);
 }
 .award-image img { width: 100%; height: 100%; object-fit: cover; }
 .award-body { min-width: 0; }
-.award-name { color: var(--text); display: block; margin-bottom: 4px; }
+.award-name { color: var(--text); display: block; margin-bottom: var(--space-4); }
 .award-desc { color: var(--text-dim); }
 .season-awards.tbd { color: var(--text-muted); font-style: italic; }
 
@@ -765,7 +807,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 }
 .gallery-photolog {
   flex: 1;
-  border-radius: 12px 0 0 12px;
+  border-radius: var(--radius);
   border: 1px dashed var(--border);
   border-right: none;
   background: var(--surface2);
@@ -813,14 +855,14 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
     position: static;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: var(--space-24);
   }
-  .history-seasons { padding: 32px 24px 64px 24px; }
+  .history-seasons { padding: var(--space-32) var(--space-24) var(--space-64) var(--space-24); }
   .season-block { flex-direction: column; }
   .season-block.stub { padding-right: 0; }
   .season-main { max-width: none; margin: 0; }
-  .season-gallery { flex-basis: auto; min-height: 220px; margin-top: 20px; }
-  .gallery-photolog { border-radius: 12px; border-right: 1px dashed var(--border); }
+  .season-gallery { flex-basis: auto; min-height: 220px; margin-top: var(--space-24); }
+  .gallery-photolog { border-radius: var(--radius); border-right: 1px dashed var(--border); }
   .gallery-photolog.stack { min-height: 360px; }
 }
 
@@ -840,8 +882,8 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .newsletter-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 48px 40px 40px;
+  border-radius: var(--radius);
+  padding: var(--space-48) var(--space-40) var(--space-40);
   max-width: 380px;
   width: 100%;
   text-align: center;
@@ -852,7 +894,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .newsletter-hr {
   width: 60px;
   height: 2px;
-  margin: 24px auto;
+  margin: var(--space-24) auto;
   border: 0;
   background: var(--border);
 }
@@ -860,15 +902,15 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-dim);
-  margin-bottom: 28px;
+  margin-bottom: var(--space-32);
 }
-.newsletter-card form { display: flex; flex-direction: column; gap: 16px; }
+.newsletter-card form { display: flex; flex-direction: column; gap: var(--space-16); }
 .newsletter-card input {
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   height: 50px;
-  padding: 0 18px;
+  padding: 0 var(--space-16);
   color: var(--text);
   font-family: "Inter", sans-serif;
   font-size: 15px;
@@ -879,7 +921,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .newsletter-card input:focus { border-color: var(--teal); }
 .newsletter-submit {
   border: 2px solid var(--teal);
-  border-radius: 8px;
+  border-radius: var(--radius);
   min-height: 50px;
   background: transparent;
   color: var(--teal);
@@ -888,7 +930,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 }
 .newsletter-submit:hover:not(:disabled) { background: var(--teal); color: var(--bg); }
 .newsletter-submit:disabled { opacity: 0.6; cursor: default; }
-.newsletter-feedback { margin-top: 16px; font-size: 13px; color: var(--teal); min-height: 16px; }
+.newsletter-feedback { margin-top: var(--space-16); font-size: 13px; color: var(--teal); min-height: 16px; }
 .newsletter-feedback.is-error { color: var(--pink); }
 
 /* Standalone newsletter.html page: same topbar as every other page,
@@ -898,7 +940,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 68px);
-  padding: 60px 20px;
+  padding: var(--space-64) var(--space-24);
 }
 
 /* Sitewide "open on top of the current page" overlay. Sits above the
@@ -916,7 +958,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--space-24);
   z-index: 500;
   opacity: 0;
   visibility: hidden;
@@ -933,7 +975,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   position: absolute;
   top: 16px; right: 16px;
   width: 32px; height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-dim);
@@ -943,7 +985,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .modal-close:hover { color: var(--pink); border-color: var(--pink); }
 
@@ -972,43 +1014,43 @@ body.modal-open { overflow: hidden; }
    colors/fonts/theme are set on customgform.com's editor (Design
    tab for that form), not here — nothing in this stylesheet can
    reach inside their popup. */
-.sponsors-content { padding: 48px 56px 80px; max-width: 1300px; margin: 0 auto; }
+.sponsors-content { padding: var(--space-48) var(--space-56) var(--space-80); max-width: 1300px; margin: 0 auto; }
 
 .sponsor-cta {
   text-align: center;
   max-width: 640px;
-  margin: 0 auto 64px;
-  padding-bottom: 48px;
+  margin: 0 auto var(--space-64);
+  padding-bottom: var(--space-48);
   border-bottom: 1px solid var(--border);
 }
-.sponsor-cta p { margin-bottom: 28px; }
+.sponsor-cta p { margin-bottom: var(--space-32); }
 .sponsor-cta-btn {
   display: inline-flex;
   align-items: center;
-  padding: 12px 27px;
+  padding: var(--space-12) var(--space-32);
   background: transparent;
   color: var(--teal);
   border: 2px solid var(--teal);
-  border-radius: 8px;
+  border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .sponsor-cta-btn:hover { background: var(--teal); color: var(--bg); }
 
-.sponsor-tier { margin-bottom: 56px; }
+.sponsor-tier { margin-bottom: var(--space-56); }
 .sponsor-tier:last-child { margin-bottom: 0; }
 
-.sponsor-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+.sponsor-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-24); }
 
 .sponsor-tile {
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: var(--surface2);
   border: 1px dashed var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   color: var(--text-muted);
   text-align: center;
-  padding: 16px;
+  padding: var(--space-16);
   transition: border-color 0.2s;
 }
 .sponsor-tile:hover { border-color: var(--teal-border); }
@@ -1019,7 +1061,7 @@ body.modal-open { overflow: hidden; }
 .sponsor-grid.small .sponsor-tile { width: 280px; aspect-ratio: 1 / 1; }
 
 @media (max-width: 980px) {
-  .sponsors-content { padding: 40px 24px 64px; }
+  .sponsors-content { padding: var(--space-40) var(--space-24) var(--space-64); }
   .sponsor-grid.large .sponsor-tile { width: 100%; max-width: 560px; }
   .sponsor-grid.medium .sponsor-tile { width: 100%; max-width: 400px; }
   .sponsor-grid.small .sponsor-tile { width: 100%; max-width: 280px; }
@@ -1047,10 +1089,10 @@ body.modal-open { overflow: hidden; }
    18px/700 from section 11 so rows read like the Events cards. */
 .robots-hero {
   text-align: center;
-  padding: 80px 56px 64px;
+  padding: var(--space-80) var(--space-56) var(--space-64);
   border-bottom: 1px solid var(--border);
 }
-.robots-kicker { color: var(--pink); margin-bottom: 22px; }
+.robots-kicker { color: var(--pink); margin-bottom: var(--space-24); }
 .robots-title {
   color: var(--text);
   max-width: 940px;
@@ -1060,20 +1102,20 @@ body.modal-open { overflow: hidden; }
 
 .countdown-card.wide {
   max-width: 460px;
-  margin: 56px auto 0;
+  margin: var(--space-56) auto 0;
 }
 .countdown-card.wide .countdown-num {
   font-size: 64px;
   min-width: 140px;
-  padding: 18px 14px;
+  padding: var(--space-16) var(--space-16);
 }
 
-.robots-content { padding: 64px 56px 96px; max-width: 1100px; margin: 0 auto; }
+.robots-content { padding: var(--space-64) var(--space-56) var(--space-96); max-width: 1100px; margin: 0 auto; }
 
 .portfolio-table {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -1083,8 +1125,8 @@ body.modal-open { overflow: hidden; }
   display: grid;
   grid-template-columns: 140px 1fr 160px;
   align-items: center;
-  gap: 24px;
-  padding: 18px 28px;
+  gap: var(--space-24);
+  padding: var(--space-16) var(--space-32);
 }
 
 .portfolio-head {
@@ -1112,7 +1154,7 @@ body.modal-open { overflow: hidden; }
   letter-spacing: -0.01em;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-12);
   flex-wrap: wrap;
   transition: color 0.2s;
 }
@@ -1122,7 +1164,7 @@ body.modal-open { overflow: hidden; }
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
   color: var(--teal);
 }
 .portfolio-chevron { display: inline-block; transition: transform 0.25s; }
@@ -1138,21 +1180,21 @@ body.modal-open { overflow: hidden; }
 
 .portfolio-panel {
   background: var(--surface2);
-  padding: 4px 28px 24px;
+  padding: var(--space-4) var(--space-32) var(--space-24);
 }
 .portfolio-frame {
   display: block;
   width: 100%;
   height: 80vh;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--bg3);
 }
 .portfolio-links {
   display: flex;
   justify-content: flex-end;
-  gap: 24px;
-  padding-top: 14px;
+  gap: var(--space-24);
+  padding-top: var(--space-16);
 }
 .portfolio-links a {
   color: var(--text-dim);
@@ -1160,3 +1202,178 @@ body.modal-open { overflow: hidden; }
   transition: color 0.2s;
 }
 .portfolio-links a:hover { color: var(--teal); }
+
+
+/* 21. Keyboard focus + pressed states
+   Every link, button, form field and portfolio row gets the same
+   visible teal outline when reached with the keyboard (Tab). Mouse
+   clicks don't show it — that's what :focus-visible is for. */
+:where(a, button, summary, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+}
+.nav-link:focus-visible { color: var(--teal); }
+.portfolio-row > summary:focus-visible { outline-offset: -4px; }
+.sponsor-cta-btn:active,
+.newsletter-submit:active:not(:disabled) {
+  background: var(--teal-dim);
+  border-color: var(--teal-dim);
+  color: var(--bg);
+}
+
+
+/* 22. Reduced motion
+   Visitors who turn on "Reduce motion" in their OS settings get a
+   still site: gears stop, the RGB strip freezes, fades/slides skip. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* 23. Responsive
+   Two breakpoints:
+     ≤1024px  the six nav links don't fit, so they fold into a menu
+              button (built by script.js section 6). Without JS the
+              links just scroll sideways instead of disappearing.
+     ≤760px   phone layout. Per the mobile plan: no home countdown,
+              no History photo log, no Robots portfolio table. */
+.nav-toggle { display: none; }
+
+@media (max-width: 1024px) {
+  .topbar { gap: var(--space-16); padding: 0 var(--space-16) 0 var(--space-24); }
+  .topbar-meta { display: none; }
+  .topbar-links { flex: 1; min-width: 0; overflow-x: auto; }
+
+  .js-nav .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .js-nav .nav-toggle:hover { color: var(--teal); border-color: var(--teal); }
+  .js-nav.nav-open .nav-toggle { color: var(--pink); border-color: var(--pink); }
+
+  .js-nav .topbar-links {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-16) var(--space-24) var(--space-40);
+    background: var(--bg2);
+    overflow-y: auto;
+  }
+  .js-nav.nav-open .topbar-links { display: flex; }
+  .js-nav .topbar-links .nav-link {
+    min-height: 64px;
+    padding: 0;
+    font-size: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .js-nav .topbar-links .nav-link.active { border-bottom-color: var(--teal); }
+  body.nav-open { overflow: hidden; }
+}
+
+@media (max-width: 760px) {
+  /* type */
+  .type-body { font-size: 17px; line-height: 1.7; }
+  .page-header { padding: var(--space-40) var(--space-24) var(--space-32); }
+  .page-header .page-title { white-space: normal !important; }
+
+  /* home: hero */
+  .hero-desktop { padding: var(--space-40) var(--space-24) 0; min-height: 0; }
+  .hero-top-row { margin-bottom: var(--space-24); }
+  .hero-teamname { font-size: clamp(64px, 20vw, 96px); }
+  .hero-meta-block {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-12);
+    text-align: left;
+    margin-bottom: var(--space-24);
+  }
+  .hero-cutoff-line { margin: 0 calc(var(--space-24) * -1); }
+  /* gears: one behind the title (right), one behind the stats (left) */
+  .hero-gear-desktop-right { width: 400px; right: -130px; top: var(--space-16); bottom: auto; opacity: 0.3; }
+  .hero-gear-desktop-left  { width: 410px; left: -280px; top: 540px; bottom: auto; opacity: 0.3; }
+
+  /* home: overview */
+  .home-overview { margin-top: 0; }
+  .home-overview-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-32);
+    padding: var(--space-32) var(--space-24) var(--space-48);
+  }
+  .home-copy { flex: 0 0 auto; }
+  .home-countdown { display: none; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .hero-stat-div { display: none; }
+  .hero-stat:nth-child(1), .hero-stat:nth-child(5) { border-right: 1px solid var(--border); }
+  .hero-stat:nth-child(1), .hero-stat:nth-child(3) { border-bottom: 1px solid var(--border); }
+  .home-cta-row .sponsor-cta-btn { width: 100%; justify-content: center; min-height: 48px; }
+
+  /* events */
+  .events-content { padding: var(--space-32) var(--space-24) var(--space-64); }
+  .event-card { gap: var(--space-16); padding: var(--space-16); }
+  .event-date-block { width: 64px; padding-right: var(--space-16); }
+  .event-name { font-size: 16px; }
+
+  /* team: three across */
+  .team-content { padding: var(--space-32) var(--space-24) var(--space-64); }
+  .team-grid { gap: var(--space-24) var(--space-12); }
+  .team-card { width: calc((100% - 2 * var(--space-12)) / 3); }
+
+  /* robots: hero + countdown only */
+  .robots-hero { padding: var(--space-48) var(--space-24) var(--space-40); }
+  .robots-content { display: none; }
+
+  /* events: the two 1200px corner gears swamp a phone — keep one,
+     shrunk, in the top-right corner (classes are on events.html) */
+  .corner-gear-left { display: none; }
+  .corner-gear-right { width: 160px !important; height: 160px !important; }
+  .corner-gear-right img { width: 320px !important; height: 320px !important; top: -160px !important; right: -160px !important; }
+
+  /* history: no photo log */
+  .season-gallery { display: none; }
+}
+
+
+/* 24. Hidden drafts / empty sections
+   Add "is-draft" to anything not written yet (a History season and
+   its locator link) or "is-empty" to a sponsor tier with no logos.
+   They stay in the HTML, ready to go, but nobody sees them until the
+   class is removed. */
+.is-draft, .is-empty { display: none !important; }
+/* The last season still showing on History drops its bottom rule,
+   even when the seasons after it are hidden drafts. */
+.season-block:not(.is-draft):not(:has(~ .season-block:not(.is-draft))) {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+/* With every sponsor tier hidden, the CTA is the whole page — drop
+   the divider that would otherwise hang under it. */
+.sponsor-cta:not(:has(~ .sponsor-tier:not(.is-empty))) {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* Decorative gears hang past the screen edge on purpose. "clip"
+   trims them sideways without blocking them from hanging down, so
+   phones (iOS Safari especially) can't be dragged sideways. */
+.hero-banner-wrap,
+.page-header { overflow-x: clip !important; }

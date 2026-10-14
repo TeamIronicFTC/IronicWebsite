@@ -1,8 +1,9 @@
 // TEAM IRONIC WEBSITE SCRIPT
 //
-// Does five things, all run on every page:
+// Does seven things, all run on every page:
 //   1. Countdowns: updates the "days to go" number on the home page
-//      card AND the Robots page countdown (does nothing on pages
+//      card AND the Robots page countdown, always counting to the
+//      next event that hasn't happened yet (does nothing on pages
 //      without either one)
 //   2. Active nav link: adds the ".active" highlight to whichever
 //      nav link matches the current page
@@ -15,35 +16,50 @@
 //   5. Robots page portfolios: loads a season's PDF only when its
 //      row is opened, and keeps just one row open at a time (does
 //      nothing on pages without a .portfolio-row)
+//   6. Mobile menu: adds a menu button to the topbar that folds the
+//      six nav links away on tablets and phones (style.css 23)
+//   7. Keyboard support for the sponsor form button (Enter/Space)
 
 
 // ----------------------------------------------------------
 // 1. Countdown to next competition
 // ----------------------------------------------------------
-// To update, change the two lines below. Both the home page card and
-// the Robots page countdown read from these, so there's only one
-// place to change:
-//   NEXT_COMP_DATE  — the event's date and time
-//                     (format: "YYYY-MM-DDTHH:MM:SS", 24 hour clock)
-//   NEXT_COMP_LABEL — the text under the numbers; gets dropped into
-//                     any element with class "js-next-comp-label"
-//
+// COMP_SCHEDULE is the season's competitions in date order. Both the
+// home page card and the Robots page countdown count down to the
+// FIRST one that hasn't started yet, and the label under the number
+// (any element with class "js-next-comp-label") follows along — so
+// once the scrimmage passes it flips to Meet 1 by itself instead of
+// sitting at "0".
+//   date  — "YYYY-MM-DDTHH:MM:SS", 24 hour clock, local time
+//   label — the text under the number
+// When a date or venue changes, edit it here. Judging is a Zoom
+// interview, not a competition, so it isn't in this list.
+const COMP_SCHEDULE = [
+  { date: "2026-10-17T08:00:00", label: "Scrimmage · 10/17/26" },
+  { date: "2026-11-14T08:00:00", label: "Meet 1 · 11/14/26" },
+  { date: "2026-12-12T08:00:00", label: "Meet 2 · 12/12/26" },
+  { date: "2027-01-23T08:00:00", label: "Meet 3 · 1/23/27" },
+  { date: "2027-02-13T08:00:00", label: "League Championship · 2/13/27" }
+];
+
+function nextComp() {
+  const now = Date.now();
+  return COMP_SCHEDULE.find(c => new Date(c.date).getTime() > now) || null;
+}
+
 // Both countdowns show whole days only (rounded up), so this only
 // needs to recheck once a minute.
-const NEXT_COMP_DATE  = "2026-10-17T08:00:00";   // Scrimmage (first of the 10/17 or 10/24 dates)
-const NEXT_COMP_LABEL = "Scrimmage · 10/17/26";
-
-document.querySelectorAll('.js-next-comp-label').forEach(el => {
-  el.textContent = NEXT_COMP_LABEL;
-});
-
 function updateCountdown() {
-  if (!NEXT_COMP_DATE) return; // leave dashes showing
+  const comp = nextComp();
 
-  const diff = Math.max(new Date(NEXT_COMP_DATE).getTime() - Date.now(), 0);
-  const days = String(Math.ceil(diff / (1000 * 60 * 60 * 24)));
+  document.querySelectorAll('.js-next-comp-label').forEach(el => {
+    el.textContent = comp ? comp.label : 'Season complete';
+  });
 
   // cd-days = home page card, rb-days = Robots page
+  const days = comp
+    ? String(Math.ceil((new Date(comp.date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+    : '--';
   ['cd-days', 'rb-days'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = days;
@@ -143,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = overlay.querySelector('form');
   const feedback = overlay.querySelector('.newsletter-feedback');
   const submitBtn = form.querySelector('button[type="submit"]');
-  const FORM_ENDPOINT = 'https://formspree.io/f/xbgjzrgd'; // keep in sync with newsletter.html
+  const FORM_ENDPOINT = 'https://formspree.io/f/xdekzydy'; // must match the form action in newsletter.html
 
   const openModal = () => {
     overlay.classList.add('active');
@@ -229,4 +245,64 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+});
+
+
+// ----------------------------------------------------------
+// 6. Mobile menu
+// ----------------------------------------------------------
+// Adds a menu button to every page's topbar. On screens 1024px and
+// narrower (style.css section 23) the six nav links hide behind it
+// and open as a full-screen list. Because the button is added here,
+// no HTML page needs changing — and if JavaScript is off, the links
+// simply stay visible and scroll sideways instead.
+document.addEventListener('DOMContentLoaded', () => {
+  const topbar = document.querySelector('.topbar');
+  const links = topbar && topbar.querySelector('.topbar-links');
+  if (!links) return;
+
+  links.id = links.id || 'site-nav';
+  const ICON_OPEN = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg>';
+  const ICON_CLOSE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'nav-toggle';
+  btn.setAttribute('aria-controls', links.id);
+  topbar.appendChild(btn);
+  topbar.classList.add('js-nav');
+
+  const setOpen = open => {
+    topbar.classList.toggle('nav-open', open);
+    document.body.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    btn.innerHTML = open ? ICON_CLOSE : ICON_OPEN;
+  };
+  setOpen(false);
+
+  btn.addEventListener('click', () => setOpen(!topbar.classList.contains('nav-open')));
+  links.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && topbar.classList.contains('nav-open')) { setOpen(false); btn.focus(); }
+  });
+  // Close it if the window gets wide enough to show the normal nav again.
+  window.matchMedia('(min-width: 1025px)').addEventListener('change', e => { if (e.matches) setOpen(false); });
+});
+
+
+// ----------------------------------------------------------
+// 7. Keyboard support for the sponsor form button
+// ----------------------------------------------------------
+// customgform.com needs its trigger to be a <div>, which keyboards
+// can't press on their own. sponsors.html / sponsor-form.html give
+// that div role="button" and tabindex="0" so it can be reached with
+// Tab; this makes Enter and Space click it, like a real button.
+document.addEventListener('keydown', (e) => {
+  const el = e.target;
+  if (!(el instanceof HTMLElement) || el.getAttribute('role') !== 'button' || el.tagName === 'BUTTON') return;
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    el.click();
+  }
 });
