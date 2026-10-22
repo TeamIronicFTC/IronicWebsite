@@ -6,13 +6,13 @@
 <title>Our Team | IRONIC Robotics – FTC #14226</title>
 <meta name="description" content="Meet the students and coaches of Team IRONIC, FTC robotics team #14226 at Manatee School for the Arts in Palmetto, FL.">
 <link rel="canonical" href="https://ironicrobotics.org/team.html">
-<link rel="icon" type="image/png" href="gear.png">
+<link rel="icon" type="image/png" href="DesignElements/gear.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Team IRONIC">
 <meta property="og:title" content="Our Team | IRONIC Robotics – FTC #14226">
 <meta property="og:description" content="Meet the students and coaches of Team IRONIC, FTC robotics team #14226 at Manatee School for the Arts in Palmetto, FL.">
 <meta property="og:url" content="https://ironicrobotics.org/team.html">
-<meta property="og:image" content="https://ironicrobotics.org/2025-2026-TeamPic.jpg">
+<meta property="og:image" content="https://ironicrobotics.org/HistoryPhotos/2025-2026-TeamPic.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +36,26 @@
   }
   .team-card.pink .team-card-tag { color: var(--teal); border-color: var(--teal-border); }
 </style>
+<script>
+  /* TEAM PHOTO FALLBACK
+     Each card points at TeamPhotos/<Name>Team.jpg. If that file
+     isn't there, this tries .png, .jpeg and .webp, then falls back
+     to the gray placeholder in DesignElements. So uploading a photo
+     named e.g. "ChaseTeam.png" into TeamPhotos just works, no code
+     changes. Names are case-sensitive on the live server. */
+  function teamPhotoFallback(img) {
+    var exts = ['png', 'jpeg', 'webp'];
+    var i = parseInt(img.dataset.try || '0', 10);
+    var base = img.getAttribute('src').replace(/\.[a-z]+$/i, '');
+    if (base.indexOf('TeamPhotos/') === 0 && i < exts.length) {
+      img.dataset.try = i + 1;
+      img.src = base + '.' + exts[i];
+    } else {
+      img.onerror = null;
+      img.src = 'DesignElements/portrait-placeholder.png';
+    }
+  }
+</script>
 </head>
 <!--
   TEAM PAGE
@@ -68,7 +88,8 @@
 
   How to add or remove a member:
   Copy one <div class="team-card pink"> (or "blue") block inside the
-  group's .team-grid, then swap the photo, name, role and grade.
+  group's .team-grid, then swap the photo filename (TeamPhotos/<Name>Team.jpg), name,
+  role and grade.
   "pink" and "blue" just switch the accent color, doesn't mean
   anything, use whichever looks better next to the last card. When
   adding someone to the combined Code/Build/Media group, drop their
@@ -86,6 +107,16 @@
 
   SEO: the <title>, meta description, canonical and og: tags in
   <head> are this page's own search-result / link-preview info.
+
+  PHOTOS (folder layout matches the site root):
+    TeamPhotos/      member + coach headshots, named <Name>Team
+                     e.g. ChaseTeam.jpg, JayDonTeam.jpg, FosterTeam.jpg
+                     (.jpg, .png, .jpeg or .webp all work)
+    DesignElements/  gear.png (favicon), portrait-placeholder.png
+    HistoryPhotos/   season team pics (used for the og:image preview)
+  Students use their first name, coaches use their last name
+  (McCollough, Foster, Brandon, Joe). If a photo is missing, the card
+  automatically shows the placeholder (see teamPhotoFallback in <head>).
 
   Full notes on this file's CSS are in style-guide.pdf, section 12.
 -->
@@ -126,7 +157,7 @@
     <div class="team-grid" style="margin-bottom: 48px;">
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/ChaseTeam.jpg" alt="Chase M." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Chase M.</div>
@@ -136,7 +167,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/ImaniTeam.jpg" alt="Imani C." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Imani C.</div>
@@ -146,7 +177,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/JoshTeam.jpg" alt="Josh V." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Josh V.</div>
@@ -163,7 +194,7 @@
     <div class="team-grid" style="margin-bottom: 48px;">
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/LoganTeam.jpg" alt="Logan M." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Logan M.</div>
@@ -173,7 +204,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/LucasTeam.jpg" alt="Lucas B." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Lucas B.</div>
@@ -183,7 +214,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/CarlyTeam.jpg" alt="Carly D." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Carly D.</div>
@@ -193,7 +224,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/AmberlynnTeam.jpg" alt="Amberlynn P." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Amberlynn P.</div>
@@ -203,7 +234,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/AdlerTeam.jpg" alt="Adler Z." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Adler Z.</div>
@@ -213,7 +244,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/SophieTeam.jpg" alt="Sophie M." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Sophie M.</div>
@@ -223,7 +254,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/MariTeam.jpg" alt="Mari" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Mari</div>
@@ -233,7 +264,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/JayDonTeam.jpg" alt="JayDon S." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">JayDon S.</div>
@@ -243,7 +274,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/MirandaTeam.jpg" alt="Miranda P." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Miranda P.</div>
@@ -259,7 +290,7 @@
     <div class="team-grid" style="margin-bottom: 48px;">
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/JaydenTeam.jpg" alt="Jayden Encarnacion" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Jayden Encarnacion</div>
@@ -268,7 +299,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/AriTeam.jpg" alt="Ari Viera" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Ari Viera</div>
@@ -282,7 +313,7 @@
     <div class="team-grid" style="margin-bottom: 0px;">
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/McColloughTeam.jpg" alt="Ms. McCollough" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Ms. McCollough</div>
@@ -291,7 +322,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/FosterTeam.jpg" alt="Mr. Foster" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Mr. Foster</div>
@@ -300,7 +331,7 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/BrandonTeam.jpg" alt="Mr. Brandon" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Mr. Brandon</div>
@@ -309,7 +340,7 @@
       </div>
       <div class="team-card pink">
         <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
+          <img src="TeamPhotos/JoeTeam.jpg" alt="Mr. Joe" onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Mr. Joe</div>
