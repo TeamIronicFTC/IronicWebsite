@@ -19,15 +19,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Small outlined "tag" that sits in front of a role, e.g. the
-     ALUMNI tag on Jayden's Coach card. Uses the opposite accent of
-     the card (pink on a blue card) so it reads as a separate label.
-     Copy <span class="team-card-tag">...</span> into any
-     .team-card-role to reuse it. */
+  /* Small outlined "tag" used as a card's role, e.g. the single
+     "Alumni Mentor" tag on the Alumni Mentors cards. Uses the
+     opposite accent of the card (pink on a blue card) so it reads
+     as a separate label. Copy <span class="team-card-tag">...</span>
+     into any .team-card-role to reuse it. */
   .team-card-tag {
     display: inline-block;
     padding: 0 4px;
-    margin-right: 8px;
     border: 1px solid var(--pink-border);
     border-radius: var(--radius);
     color: var(--pink);
@@ -46,7 +45,7 @@
     2. Page header, "Our Team" title. No corner gears or faint year
        watermark here — those only live on the Events page now.
     3. Team content: Leadership, then ONE combined Code/Build/Media
-       group, then Coaches.
+       group, then Alumni Mentors, then Coaches.
 
   Leadership shows the three captains: Chase M., Imani C. and
   Josh V.
@@ -62,10 +61,10 @@
     - "Build, Code"  — does both (comma-separated, on one line)
     - "Media"        — media
 
-  Coaches also includes Jayden Encarnacion, an alumni mentor — his
-  role line reads "Mentor" with an "Alumni" tag in front of it
-  (.team-card-tag, styled in the <style> block at the top of this
-  file).
+  Alumni Mentors is its own section, placed right above Coaches.
+  It holds Jayden Encarnacion and Ari Viera. Each card's role line
+  is a single "Alumni Mentor" tag (.team-card-tag, styled in the
+  <style> block at the top of this file).
 
   How to add or remove a member:
   Copy one <div class="team-card pink"> (or "blue") block inside the
@@ -209,18 +208,10 @@
         <div class="team-card-body">
           <div class="team-card-name type-names">Adler Z.</div>
           <div class="team-card-role">Build</div>
+          <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
       <div class="team-card pink">
-        <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
-        </div>
-        <div class="team-card-body">
-          <div class="team-card-name type-names">Micah G.</div>
-          <div class="team-card-role">Build, Code</div>
-        </div>
-      </div>
-      <div class="team-card blue">
         <div class="team-card-img">
           <img src="portrait-placeholder.png" alt="">
         </div>
@@ -230,13 +221,24 @@
           <div class="team-card-grade">Grade 12</div>
         </div>
       </div>
-      <div class="team-card pink">
+      <div class="team-card blue">
         <div class="team-card-img">
           <img src="portrait-placeholder.png" alt="">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">Mari</div>
           <div class="team-card-role">Build</div>
+          <div class="team-card-grade">Grade 11</div>
+        </div>
+      </div>
+      <div class="team-card pink">
+        <div class="team-card-img">
+          <img src="portrait-placeholder.png" alt="">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">JayDon S.</div>
+          <div class="team-card-role">Build, Code</div>
+          <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
       <div class="team-card blue">
@@ -244,8 +246,24 @@
           <img src="portrait-placeholder.png" alt="">
         </div>
         <div class="team-card-body">
-          <div class="team-card-name type-names">JayDon S.</div>
-          <div class="team-card-role">Build, Code</div>
+          <div class="team-card-name type-names">Miranda P.</div>
+          <div class="team-card-role">Media</div>
+          <div class="team-card-grade">Grade 11</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALUMNI MENTORS — sits right above Coaches. Role line is a
+         single "Alumni Mentor" tag. -->
+    <div class="events-section-title type-caption">Alumni Mentors</div>
+    <div class="team-grid" style="margin-bottom: 48px;">
+      <div class="team-card blue">
+        <div class="team-card-img">
+          <img src="portrait-placeholder.png" alt="">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">Jayden Encarnacion</div>
+          <div class="team-card-role"><span class="team-card-tag">Alumni Mentor</span></div>
         </div>
       </div>
       <div class="team-card pink">
@@ -253,8 +271,8 @@
           <img src="portrait-placeholder.png" alt="">
         </div>
         <div class="team-card-body">
-          <div class="team-card-name type-names">Miranda P.</div>
-          <div class="team-card-role">Media</div>
+          <div class="team-card-name type-names">Ari Viera</div>
+          <div class="team-card-role"><span class="team-card-tag">Alumni Mentor</span></div>
         </div>
       </div>
     </div>
@@ -296,15 +314,6 @@
         <div class="team-card-body">
           <div class="team-card-name type-names">Mr. Joe</div>
           <div class="team-card-role">Coach</div>
-        </div>
-      </div>
-      <div class="team-card blue">
-        <div class="team-card-img">
-          <img src="portrait-placeholder.png" alt="">
-        </div>
-        <div class="team-card-body">
-          <div class="team-card-name type-names">Jayden Encarnacion</div>
-          <div class="team-card-role"><span class="team-card-tag">Alumni</span>Mentor</div>
         </div>
       </div>
     </div>
