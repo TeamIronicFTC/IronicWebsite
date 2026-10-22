@@ -36,6 +36,25 @@
     border: 2px solid #C0C0C0;
     box-shadow: 0 0 0 1px rgba(192,192,192,0.3), 0 0 24px rgba(192,192,192,0.14);
   }
+
+  /* Real sponsor logos. Most logos are drawn for a white page (KW's
+     is black text, Computers' is navy), so they'd vanish on the dark
+     tile — a tile holding a logo gets a white background instead.
+     The tile is an <a> to the sponsor's site, opening in a new tab;
+     hovering lifts it slightly and brightens the tier glow. */
+  a.sponsor-tile.has-logo {
+    background: #FFFFFF;
+    padding: var(--space-32);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  a.sponsor-tile.has-logo:hover { transform: translateY(-4px); }
+  .sponsor-tier.gold a.sponsor-tile.has-logo:hover {
+    box-shadow: 0 0 0 1px rgba(212,175,55,0.5), 0 0 36px rgba(212,175,55,0.32);
+  }
+  .sponsor-tier.silver a.sponsor-tile.has-logo:hover {
+    box-shadow: 0 0 0 1px rgba(192,192,192,0.45), 0 0 36px rgba(192,192,192,0.26);
+  }
 </style>
 </head>
 <!--
@@ -63,23 +82,29 @@
   (Design tab), not in this site's CSS — see the header note in
   style.css section 19 for more.
 
-  EMPTY TIERS ARE HIDDEN: every tier below carries the class
-  "is-empty" (style.css section 24), so until a real logo exists the
-  page shows just the CTA. When a sponsor signs on, swap a tile's
-  <span> for their <img>, delete the extra placeholder tiles in that
-  tier, and remove "is-empty" from that tier's div.
+  CURRENT SPONSORS:
+    - Gold:   KW Homes with Nick   → kw-homes-with-nick.png
+              links to http://www.homeswithnickfl.com/
+    - Silver: Computers Repair + Electronics → computers-repair-plus.png
+              links to https://computersrepairplus.com/
+    - Bronze: none yet (tier still hidden with "is-empty")
 
-  Sponsor tiers below are Gold (2), Silver (3), Bronze (5). Every
-  tile is now the same medium square (.sponsor-grid.medium). Gold
-  tiles get a gold highlight border and Silver tiles a silver one
-  (the "gold"/"silver" class on .sponsor-tier, styled in the <style>
-  block at the top of this file); Bronze keeps the plain dashed
-  look. Tile counts are a guess, add/remove freely.
-  Every tile is a dashed placeholder box (same look as the
-  placeholder photo spots on the History page) until a real sponsor
-  logo exists — swap the <span> inside a .sponsor-tile for an
-  <img src="..."> to drop a real logo in, no other markup changes
-  needed. The grid reflows and wraps on its own on smaller screens.
+  ADDING A SPONSOR: copy one of the <a class="sponsor-tile has-logo">
+  tiles below into the right tier, change the href, the img src, and
+  the alt/aria-label text. If it's the first logo in Bronze, delete
+  that tier's placeholder tiles and remove "is-empty" from its div.
+  Logos look best as square transparent PNGs; they sit on a white
+  tile (see the .has-logo rules in the <style> block above).
+
+  EMPTY TIERS ARE HIDDEN: a tier carrying the class "is-empty"
+  (style.css section 24) doesn't show at all, so the page only ever
+  shows tiers that actually have logos.
+
+  Gold tiles get a gold highlight border and Silver tiles a silver
+  one (the "gold"/"silver" class on .sponsor-tier, styled in the
+  <style> block at the top of this file); Bronze keeps the plain
+  dashed look. The grid centers and wraps on its own on smaller
+  screens.
 
   SEO: the <title>, meta description, canonical and og: tags in
   <head> are this page's own search-result / link-preview info.
@@ -128,44 +153,31 @@
     </div>
 
     <!-- TIER 1: Gold — medium tiles with gold highlight -->
-    <div class="sponsor-tier gold is-empty">
+    <div class="sponsor-tier gold">
       <div class="events-section-title type-caption">Gold Sponsors</div>
       <div class="sponsor-grid medium">
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
+        <a class="sponsor-tile has-logo" href="http://www.homeswithnickfl.com/"
+           target="_blank" rel="noopener" aria-label="KW Homes with Nick (opens in a new tab)">
+          <img src="kw-homes-with-nick.png" alt="KW Homes with Nick logo" width="1200" height="1200" loading="lazy">
+        </a>
       </div>
     </div>
 
     <!-- TIER 2: Silver — medium tiles with silver highlight -->
-    <div class="sponsor-tier silver is-empty">
+    <div class="sponsor-tier silver">
       <div class="events-section-title type-caption">Silver Sponsors</div>
       <div class="sponsor-grid medium">
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
+        <a class="sponsor-tile has-logo" href="https://computersrepairplus.com/"
+           target="_blank" rel="noopener" aria-label="Computers Repair + Electronics (opens in a new tab)">
+          <img src="computers-repair-plus.png" alt="Computers Repair + Electronics logo" width="1000" height="1000" loading="lazy">
+        </a>
       </div>
     </div>
 
-    <!-- TIER 3: Bronze — medium tiles, plain dashed look -->
+    <!-- TIER 3: Bronze — medium tiles, plain dashed look (hidden until a sponsor signs on) -->
     <div class="sponsor-tier is-empty">
       <div class="events-section-title type-caption">Bronze Sponsors</div>
       <div class="sponsor-grid medium">
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
-        <div class="sponsor-tile">
-          <span class="type-caption mono">Sponsor Logo</span>
-        </div>
         <div class="sponsor-tile">
           <span class="type-caption mono">Sponsor Logo</span>
         </div>
