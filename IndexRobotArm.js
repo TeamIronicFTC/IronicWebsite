@@ -72,9 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const num = document.getElementById('cd-days');
   if (!card || !num) return; // not the overview page
 
-  // drop the arm artwork into the card
+  // turn the card into his workcell: floor, divider, tag, then the
+  // arm artwork. "has-arm" switches on the wide cell layout in
+  // style.css section 25.
   card.insertAdjacentHTML('beforeend',
+    '<div class="arm-floor" aria-hidden="true"></div>' +
+    '<div class="arm-divider" aria-hidden="true"></div>' +
+    '<span class="arm-cell-tag" aria-hidden="true">Cell 01</span>' +
     '<svg class="home-arm" viewBox="100 60 430 510" aria-hidden="true" focusable="false">' + ROBOT_ARM_SVG + '</svg>');
+  card.classList.add('has-arm');
   const svg = card.querySelector('.home-arm');
 
   if (getComputedStyle(card).display === 'none') return; // phones: whole card is hidden

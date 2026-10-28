@@ -1381,26 +1381,69 @@ body.modal-open { overflow: hidden; }
 
 
 /* 25. Overview robot arm
-   The arm that lives on the right side of the home page countdown
-   card. IndexRobotArm.js adds the <svg class="home-arm"> artwork into
-   #countdownCard and animates it (delivering the number, then the
-   occasional dance / stretch / nap etc.). This section only places
-   and colors it.
+   The "workcell" version: the countdown card gets wider and turns
+   into a little robot cell. Countdown on the left, the arm standing
+   on a hazard-stripe floor on the right, a thin divider between
+   them and a "Cell 01" tag in the corner.
 
-   - The card gets position: relative so the arm, the number tile he
-     carries and the little floating "♪ / z / hi!" bits can all be
-     positioned against it, plus 160px of right margin so the arm
-     has room and doesn't run off the screen.
-   - The arm is flipped with scaleX(-1) so he faces left, toward the
-     number. right: -150px puts his base right against the card edge.
+   IndexRobotArm.js adds the arm <svg class="home-arm">, the floor,
+   divider and tag into #countdownCard, then puts "has-arm" on the
+   card. Everything wide/cell-like below only applies with has-arm,
+   so if the script ever fails to load the card just stays the
+   normal 380px countdown.
+
+   - Card: 580px wide. The extra 240px of right padding is the
+     cell's floor space; the countdown text keeps the same 300px
+     width it always had.
+   - Arm: flipped with scaleX(-1) so he faces left, toward the
+     number. bottom: 7px puts his base plate right on the floor
+     stripe.
    - Colors are the original Robot Arm.ai teals. Swap --arm-light /
      --arm-core for var(--teal) / var(--teal-dim) to match the site
      tokens instead.
    - Phones never see him: section 23 already hides the whole
      .home-countdown under 760px. */
-.home-countdown {
-  position: relative;
-  margin-right: 160px;
+.home-countdown { position: relative; }
+
+.home-countdown.has-arm {
+  flex-basis: 580px;
+  padding: var(--space-40) 240px var(--space-48) var(--space-40);
+}
+.home-countdown.has-arm .countdown-label,
+.home-countdown.has-arm .countdown-digits,
+.home-countdown.has-arm .countdown-event { width: 300px; }
+
+/* hazard-stripe floor along the bottom of the cell */
+.arm-floor {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 12px;
+  border-top: 1px solid var(--border);
+  background: repeating-linear-gradient(-45deg, rgba(255,45,120,0.35) 0 6px, transparent 6px 14px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+/* thin line between the countdown and the arm's side */
+.arm-divider {
+  position: absolute;
+  top: var(--space-40);
+  bottom: 28px;
+  left: 360px;
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+/* "Cell 01" tag, top left of his side of the cell */
+.arm-cell-tag {
+  position: absolute;
+  top: 14px;
+  left: 376px;
+  font-family: "Space Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
 .home-arm {
@@ -1408,10 +1451,10 @@ body.modal-open { overflow: hidden; }
   --arm-core: #00A89D;
   --arm-line: var(--bg);
   position: absolute;
-  right: -150px;
-  bottom: -6px;
-  width: 230px;
-  height: 273px;
+  right: 20px;
+  bottom: 7px;
+  width: 200px;
+  height: 237px;
   overflow: visible;
   transform: scaleX(-1);
   pointer-events: none;
