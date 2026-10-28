@@ -2,9 +2,11 @@
 //
 // Does seven things, all run on every page:
 //   1. Countdowns: updates the "days to go" number on the home page
-//      card AND the Robots page countdown, always counting to the
+//      clock AND the Robots page countdown, always counting to the
 //      next event that hasn't happened yet (does nothing on pages
 //      without either one)
+//      1b. Home page clock: draws the tick marks and turns the hands
+//          every second (does nothing on pages without #clock-hour)
 //   2. Active nav link: adds the ".active" highlight to whichever
 //      nav link matches the current page
 //   3. History locator scrollspy: highlights whichever season is
@@ -28,7 +30,7 @@
 // 1. Countdown to next competition
 // ----------------------------------------------------------
 // COMP_SCHEDULE is the season's competitions in date order. Both the
-// home page card and the Robots page countdown count down to the
+// home page clock and the Robots page countdown count down to the
 // FIRST one that hasn't started yet, and the label under the number
 // (any element with class "js-next-comp-label") follows along — so
 // once the scrimmage passes it flips to Meet 1 by itself instead of
@@ -59,7 +61,14 @@ function updateCountdown() {
     el.textContent = comp ? comp.label : 'Season complete';
   });
 
-  // cd-days = home page card, rb-days = Robots page
+  // The home page strip shows the label split in two: the event name
+  // (".js-next-comp-name", e.g. "Meet 1") and the date
+  // (".js-next-comp-date", e.g. "11/14/26"), split at the " · ".
+  const [name, date] = comp ? comp.label.split(' · ') : ['Season complete', ''];
+  document.querySelectorAll('.js-next-comp-name').forEach(el => { el.textContent = name; });
+  document.querySelectorAll('.js-next-comp-date').forEach(el => { el.textContent = date || ''; });
+
+  // cd-days = home page clock, rb-days = Robots page
   const days = comp
     ? String(Math.ceil((new Date(comp.date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
     : '--';
@@ -71,6 +80,52 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 60 * 1000);
+
+
+// ----------------------------------------------------------
+// 1b. Home page clock
+// ----------------------------------------------------------
+// The small analog clock in the home page countdown strip (index.html,
+// style.css section 10b). Shows the visitor's real local time.
+// The SVG is a 200 x 200 box with the center at (100, 100); the
+// 60 tick marks are drawn here so index.html stays short — every
+// 5th one is a longer teal hour mark. Hands are rotated around the
+// center once a second.
+(function homeClock() {
+  const hour = document.getElementById('clock-hour');
+  if (!hour) return; // not the home page, nothing to do
+  const min = document.getElementById('clock-min');
+  const sec = document.getElementById('clock-sec');
+  const ticks = document.getElementById('clock-ticks');
+  const NS = 'http://www.w3.org/2000/svg';
+
+  for (let i = 0; i < 60; i++) {
+    const major = i % 5 === 0;
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', 100);
+    line.setAttribute('x2', 100);
+    line.setAttribute('y1', 8);
+    line.setAttribute('y2', major ? 22 : 14);
+    line.setAttribute('transform', `rotate(${i * 6} 100 100)`);
+    line.setAttribute('class', major ? 'clock-tick major' : 'clock-tick');
+    ticks.appendChild(line);
+  }
+
+  const turn = (el, deg) => el.setAttribute('transform', `rotate(${deg} 100 100)`);
+
+  function tick() {
+    const now = new Date();
+    const s = now.getSeconds();
+    const m = now.getMinutes() + s / 60;
+    const h = (now.getHours() % 12) + m / 60;
+    turn(hour, h * 30);
+    turn(min, m * 6);
+    turn(sec, s * 6);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
 
 
 // ----------------------------------------------------------

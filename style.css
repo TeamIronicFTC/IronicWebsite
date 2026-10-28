@@ -13,6 +13,8 @@
    8.  Index - decoration
    9.  Gear spinning animation
    10. Event countdown card
+   10b. Index - countdown strip
+   10c. Index - social links
    11. Events overall page
    12. Team overall page
    13. Scroll bar
@@ -210,7 +212,7 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 
 /* 7. Index - General overview
    The block under the hero: paragraph + stats + Newsletter button on
-   the left, countdown card on the right. These used to be inline
+   the left, social links on the right. These used to be inline
    styles in index.html; they live here now so the phone layout
    (section 23) can override them. The side padding centers a
    1240px content area on wide screens (= the old 340px gutters at
@@ -236,10 +238,11 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   gap: var(--space-16);
   margin-top: var(--space-24);
 }
-.home-countdown {
-  flex: 0 0 380px;
-  align-self: flex-start;
-  margin-top: var(--space-40);
+/* the right-hand column ("Find us everywhere") — its look is section 10c */
+.home-social {
+  flex: 0 0 440px;
+  min-width: 0;
+  align-self: center; /* centered top-to-bottom against the paragraph column */
 }
 
 
@@ -341,7 +344,9 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
 .gear-spin-reverse { animation: spin-ccw 20s linear infinite; display: block; width: 100%; }
 
 
-/* 10. Event countdown card */
+/* 10. Event countdown card
+   Only the Robots page uses the boxed card now (see section 20).
+   The home page uses the slim strip in 10b instead. */
 .countdown-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -402,6 +407,108 @@ main { margin-left: 0; margin-top: 68px; min-height: 100vh; }
   text-align: center;
   margin-top: var(--space-24);
 }
+
+
+/* 10b. Index - countdown strip
+   Home page only. A slim full-width band right under the overview:
+   tiny live clock, "Next Competition In", the day count, a pink
+   square, then the event name (white) and date (teal) — all
+   centered on one line.
+   script.js section 1b draws the clock ticks and turns the hands
+   (real local time); section 1 fills in the day count and label.
+   Hidden on phones (section 23), per the mobile plan. */
+.countdown-strip {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-16) var(--space-56);
+  margin-bottom: var(--space-64);
+}
+.countdown-strip-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-24);
+}
+
+.home-clock { display: block; width: 48px; height: 48px; overflow: visible; }
+.clock-ring { fill: none; stroke: var(--border); stroke-width: 1; }
+.clock-tick { stroke: var(--text-muted); stroke-width: 1; }
+.clock-tick.major { stroke: var(--teal); stroke-width: 3; }
+.clock-hand { stroke-linecap: square; }
+.clock-hand.hour { stroke: var(--text); stroke-width: 6; }
+.clock-hand.min  { stroke: var(--teal); stroke-width: 4; }
+.clock-hand.sec  { stroke: var(--pink); stroke-width: 2; }
+.clock-pin { fill: var(--pink); }
+
+.strip-label { color: var(--teal); }
+.strip-days { display: flex; align-items: baseline; gap: var(--space-8); }
+.strip-num {
+  font-family: "Inter", sans-serif;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--pink);
+  font-variant-numeric: tabular-nums;
+}
+.strip-unit { color: var(--pink); opacity: 0.7; }
+.strip-dot { width: 6px; height: 6px; background: var(--pink); }
+.strip-name {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.strip-date {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+}
+
+
+/* 10c. Index - "Find us everywhere" social links
+   Right side of the overview. One row per link (YouTube, Instagram,
+   school site): thumbnail, name, small subline, arrow. Each whole
+   row is the link. Thumbnails come from SocialPhotos/ — until one is
+   uploaded, the empty .social-thumb shows as the site's usual dashed
+   placeholder box. Name colors: Instagram pink, YouTube teal, school
+   plain text. */
+.social-list { display: flex; flex-direction: column; gap: var(--space-12); }
+.social-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-12);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.social-row:hover { border-color: var(--teal-border); background: var(--surface2); }
+.social-thumb {
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: var(--surface2);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.social-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.social-thumb:has(img) { border-style: solid; }
+.social-body { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.social-name { font-weight: 900; letter-spacing: -0.02em; color: var(--text); }
+.social-name.ig { color: var(--pink); }
+.social-name.yt { color: var(--teal); }
+.social-sub { color: var(--text-muted); }
+.social-arrow { color: var(--teal); padding-right: var(--space-8); transition: transform 0.2s; }
+.social-row:hover .social-arrow { transform: translateX(4px); }
 
 
 /* 11. Events overall page */
@@ -1321,7 +1428,9 @@ body.modal-open { overflow: hidden; }
     padding: var(--space-32) var(--space-24) var(--space-48);
   }
   .home-copy { flex: 0 0 auto; }
-  .home-countdown { display: none; }
+  .countdown-strip { display: none; }
+  .home-social { flex: 0 0 auto; }
+  .social-row { grid-template-columns: 88px 1fr auto; }
   .hero-stats { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
   .hero-stat-div { display: none; }
   .hero-stat:nth-child(1), .hero-stat:nth-child(5) { border-right: 1px solid var(--border); }

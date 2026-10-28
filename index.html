@@ -65,7 +65,10 @@
     "addressRegion": "FL",
     "addressCountry": "US"
   },
-  "sameAs": []
+  "sameAs": [
+    "https://www.instagram.com/teamironic14226/",
+    "https://www.youtube.com/@MSAIronic"
+  ]
 }
 </script>
 </head>
@@ -75,8 +78,9 @@
   What's on this page, top to bottom:
     1. Top bar (nav), same one every page uses
     2. Hero banner, team name plus the spinning gears
-    3. Overview section, the paragraph, stat numbers, button and countdown card
-    4. RGB strip at the very bottom
+    3. Overview section, the paragraph, stat numbers, button and social links
+    4. Countdown strip, full width under the overview
+    5. RGB strip at the very bottom
 
   Quick edits:
   - Bio paragraph, edit the <p class="lead"> text below.
@@ -86,6 +90,14 @@
     COMP_SCHEDULE list at the top of script.js. It moves on to the
     next event by itself once one passes, and the Robots page
     countdown reads the same list. Both countdowns only show Days.
+  - The home countdown is a slim full-width strip under the overview:
+    a small live clock, "Next Competition In", the day count and the
+    event. Clock hands = script.js section 1b; look = style.css
+    section 10b. The Robots page countdown still uses the old boxed
+    card and is unchanged.
+  - The right side of the overview is "Find us everywhere": Instagram,
+    YouTube and the school site (style.css section 10c). Edit each
+    row's href to change the link; thumbnails go in SocialPhotos/.
   - "14226" under the team name uses type-caption-heading now
     (bumped up from type-subhead) so it reads bigger.
   - The only CTA under the paragraph is "Newsletter →". It reuses
@@ -112,9 +124,9 @@
     link is shared. Every page has its own set.
   - The two <script type="application/ld+json"> blocks tell Google
     the site's name ("Team IRONIC") plus the other names people
-    search for (alternateName) and the team's details. Add the
-    team's Instagram / YouTube links to the "sameAs" list once
-    you want them included.
+    search for (alternateName) and the team's details. The
+    "sameAs" list holds the team's Instagram and YouTube so Google
+    links them to the team.
   - The hidden <h1> right inside the hero banner is the page's
     main heading for Google and screen readers. It's visually
     hidden (the big IRONIC title stays a div so its styling doesn't
@@ -185,7 +197,7 @@
 
   </div>
 
-  <!-- OVERVIEW: lead paragraph + stats + Newsletter (left) / countdown card (right).
+  <!-- OVERVIEW: lead paragraph + stats + Newsletter (left) / social links (right).
        Layout lives in style.css section 7 (desktop) and 23 (phone). -->
   <div class="home-overview">
     <div class="home-overview-row">
@@ -222,21 +234,75 @@
         </div>
       </div>
 
-      <!-- right: countdown card (hidden on phones) -->
-      <div class="countdown-card home-countdown" id="countdownCard">
-        <div class="countdown-label mono">
-          Countdown to Next Competition
+      <!-- right: "Find us everywhere" links (style.css section 10c).
+           Each row = one link. To change where a row goes, edit its href.
+           Thumbnails come from the SocialPhotos folder, named so a new
+           upload needs no recoding:
+             SocialPhotos/InstagramLatest.jpg
+             SocialPhotos/YouTubeLatest.jpg
+             SocialPhotos/SchoolLatest.jpg
+           Until a file is uploaded the row shows a dashed placeholder box
+           (the onerror bit hides the broken image). -->
+      <div class="home-social">
+        <div class="events-section-title type-caption">Find us everywhere</div>
+        <div class="social-list">
+
+          <a class="social-row" href="https://www.instagram.com/teamironic14226/" target="_blank" rel="noopener">
+            <span class="social-thumb"><img src="SocialPhotos/InstagramLatest.jpg" alt="" onerror="this.remove()"></span>
+            <span class="social-body">
+              <span class="social-name type-subhead ig">Instagram</span>
+              <span class="social-sub type-caption mono">@teamironic14226</span>
+            </span>
+            <span class="social-arrow type-button mono">→</span>
+          </a>
+
+          <a class="social-row" href="https://www.youtube.com/@MSAIronic" target="_blank" rel="noopener">
+            <span class="social-thumb"><img src="SocialPhotos/YouTubeLatest.jpg" alt="" onerror="this.remove()"></span>
+            <span class="social-body">
+              <span class="social-name type-subhead yt">YouTube</span>
+              <span class="social-sub type-caption mono">@MSAIronic</span>
+            </span>
+            <span class="social-arrow type-button mono">→</span>
+          </a>
+
+          <a class="social-row" href="https://msfta.org/" target="_blank" rel="noopener">
+            <span class="social-thumb"><img src="SocialPhotos/SchoolLatest.jpg" alt="" onerror="this.remove()"></span>
+            <span class="social-body">
+              <span class="social-name type-subhead">School Website</span>
+              <span class="social-sub type-caption mono">Manatee School for the Arts</span>
+            </span>
+            <span class="social-arrow type-button mono">→</span>
+          </a>
+
         </div>
-        <div class="countdown-digits">
-          <div class="countdown-unit">
-            <div class="countdown-num" id="cd-days">--</div>
-            <div class="countdown-sublabel mono">Days</div>
-          </div>
-        </div>
-        <!-- text filled in by script.js from the COMP_SCHEDULE list -->
-        <div class="countdown-event mono js-next-comp-label">&nbsp;</div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- COUNTDOWN STRIP: slim full-width band under the overview (style.css
+       section 10b). Tiny live clock on the left, then days to go and the
+       next event. Days + event come from COMP_SCHEDULE in script.js
+       section 1; the clock hands from section 1b. Hidden on phones. -->
+  <div class="countdown-strip" id="countdownCard">
+    <div class="countdown-strip-row">
+      <svg class="home-clock" viewBox="0 0 200 200" role="img" aria-label="Current time">
+        <circle class="clock-ring" cx="100" cy="100" r="96"></circle>
+        <g id="clock-ticks"></g>
+        <line class="clock-hand hour" id="clock-hour" x1="100" y1="112" x2="100" y2="54"></line>
+        <line class="clock-hand min"  id="clock-min"  x1="100" y1="116" x2="100" y2="24"></line>
+        <line class="clock-hand sec"  id="clock-sec"  x1="100" y1="124" x2="100" y2="16"></line>
+        <rect class="clock-pin" x="95" y="95" width="10" height="10"></rect>
+      </svg>
+      <span class="strip-label type-caption mono">Next Competition In</span>
+      <span class="strip-days">
+        <span class="strip-num" id="cd-days">--</span>
+        <span class="strip-unit type-caption mono">Days</span>
+      </span>
+      <span class="strip-dot" aria-hidden="true"></span>
+      <!-- name + date filled in by script.js from the COMP_SCHEDULE list -->
+      <span class="strip-name js-next-comp-name">&nbsp;</span>
+      <span class="strip-date mono js-next-comp-date">&nbsp;</span>
     </div>
   </div>
 </div>
