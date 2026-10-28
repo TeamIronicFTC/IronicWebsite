@@ -1383,11 +1383,11 @@ body.modal-open { overflow: hidden; }
 /* 25. Overview robot arm
    The "workcell" version: the countdown card gets wider and turns
    into a little robot cell. Countdown on the left, the arm standing
-   on a hazard-stripe floor on the right, a thin divider between
-   them and a "Cell 01" tag in the corner.
+   on a hazard-stripe floor on the right, and a thin divider between
+   them.
 
-   IndexRobotArm.js adds the arm <svg class="home-arm">, the floor,
-   divider and tag into #countdownCard, then puts "has-arm" on the
+   IndexRobotArm.js adds the arm <svg class="home-arm">, the floor
+   and divider into #countdownCard, then puts "has-arm" on the
    card. Everything wide/cell-like below only applies with has-arm,
    so if the script ever fails to load the card just stays the
    normal 380px countdown.
@@ -1433,19 +1433,6 @@ body.modal-open { overflow: hidden; }
   background: var(--border);
   pointer-events: none;
 }
-/* "Cell 01" tag, top left of his side of the cell */
-.arm-cell-tag {
-  position: absolute;
-  top: 14px;
-  left: 376px;
-  font-family: "Space Mono", monospace;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
 .home-arm {
   --arm-light: #44C0BD;
   --arm-core: #00A89D;
