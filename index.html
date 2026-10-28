@@ -76,6 +76,7 @@
     1. Top bar (nav), same one every page uses
     2. Hero banner, team name plus the spinning gears
     3. Overview section, the paragraph, stat numbers, button and countdown card
+       (with the robot arm living on the card's right edge)
     4. RGB strip at the very bottom
 
   Quick edits:
@@ -86,6 +87,11 @@
     COMP_SCHEDULE list at the top of script.js. It moves on to the
     next event by itself once one passes, and the Robots page
     countdown reads the same list. Both countdowns only show Days.
+  - Robot arm: lives entirely in IndexRobotArm.js (artwork + animation),
+    which drops him into the countdown card when the page loads. His
+    position/colors are in style.css section 25. How often he does a
+    move is ARM_SETTINGS near the top of IndexRobotArm.js. The original
+    "Robot Arm.ai" never goes on the site.
   - "14226" under the team name uses type-caption-heading now
     (bumped up from type-subhead) so it reads bigger.
   - The only CTA under the paragraph is "Newsletter →". It reuses
@@ -235,6 +241,8 @@
         </div>
         <!-- text filled in by script.js from the COMP_SCHEDULE list -->
         <div class="countdown-event mono js-next-comp-label">&nbsp;</div>
+
+        <!-- the robot arm gets added here by IndexRobotArm.js -->
       </div>
 
     </div>
@@ -247,5 +255,7 @@
 <div class="rgb-strip"></div>
 
 <script src="script.js"></script>
+<!-- overview only: the robot arm on the countdown card -->
+<script src="IndexRobotArm.js"></script>
 </body>
 </html>

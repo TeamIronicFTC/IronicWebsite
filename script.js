@@ -19,6 +19,9 @@
 //   6. Mobile menu: adds a menu button to the topbar that folds the
 //      six nav links away on tablets and phones (style.css 23)
 //   7. Keyboard support for the sponsor form button (Enter/Space)
+//
+// The robot arm on the home page countdown is its own file,
+// IndexRobotArm.js, loaded only by index.html.
 
 
 // ----------------------------------------------------------

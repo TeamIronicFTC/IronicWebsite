@@ -27,6 +27,7 @@
    22. Reduced motion
    23. Responsive: tablet nav + phone layout
    24. Hidden drafts / empty sections
+   25. Overview robot arm
 */
 
 
@@ -1377,3 +1378,108 @@ body.modal-open { overflow: hidden; }
    phones (iOS Safari especially) can't be dragged sideways. */
 .hero-banner-wrap,
 .page-header { overflow-x: clip !important; }
+
+
+/* 25. Overview robot arm
+   The arm that lives on the right side of the home page countdown
+   card. IndexRobotArm.js adds the <svg class="home-arm"> artwork into
+   #countdownCard and animates it (delivering the number, then the
+   occasional dance / stretch / nap etc.). This section only places
+   and colors it.
+
+   - The card gets position: relative so the arm, the number tile he
+     carries and the little floating "♪ / z / hi!" bits can all be
+     positioned against it, plus 160px of right margin so the arm
+     has room and doesn't run off the screen.
+   - The arm is flipped with scaleX(-1) so he faces left, toward the
+     number. right: -150px puts his base right against the card edge.
+   - Colors are the original Robot Arm.ai teals. Swap --arm-light /
+     --arm-core for var(--teal) / var(--teal-dim) to match the site
+     tokens instead.
+   - Phones never see him: section 23 already hides the whole
+     .home-countdown under 760px. */
+.home-countdown {
+  position: relative;
+  margin-right: 160px;
+}
+
+.home-arm {
+  --arm-light: #44C0BD;
+  --arm-core: #00A89D;
+  --arm-line: var(--bg);
+  position: absolute;
+  right: -150px;
+  bottom: -6px;
+  width: 230px;
+  height: 273px;
+  overflow: visible;
+  transform: scaleX(-1);
+  pointer-events: none;
+  z-index: 4;
+  transition: translate 0.08s;
+}
+.home-arm .af { fill: var(--arm-light); }
+.home-arm .ad { fill: var(--arm-core); }
+.home-arm .al { stroke: var(--arm-line); stroke-width: 4; }
+.home-arm path:not(.af):not(.ad) { fill: none; }
+
+/* the number tile he carries in (same look as .countdown-num) */
+.arm-tile {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  pointer-events: none;
+  font-family: "Inter", sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--pink);
+  background: var(--surface2);
+  border: 1px solid rgba(255,45,120,0.6);
+  border-radius: var(--radius);
+  padding: var(--space-8);
+  min-width: 58px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* number box states: empty until he drops the tile in, a little
+   thunk when it lands, and a wobble when he boops it */
+.countdown-num.arm-waiting { color: transparent; }
+.countdown-num.arm-placed { animation: arm-thunk 0.35s ease; }
+.countdown-num.arm-boop { animation: arm-boop 0.5s ease; }
+@keyframes arm-thunk { 40% { transform: translateY(5px); } }
+@keyframes arm-boop {
+  20% { transform: translateY(4px) scale(0.94); }
+  50% { transform: translateY(-3px) rotate(-3deg); }
+  75% { transform: rotate(2deg); }
+}
+
+/* floating bits: music notes, z's, "hi!", "?", "!" */
+.arm-fx {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: 18px;
+  transform: translate(-50%, 0);
+  animation: arm-float 1.6s ease-out forwards;
+}
+.arm-fx.note  { color: var(--pink); font-size: 22px; }
+.arm-fx.alert { color: var(--teal); font-size: 24px; }
+.arm-fx.z     { color: var(--text-dim); font-size: 20px; }
+.arm-fx.talk  {
+  color: var(--text);
+  font-size: 13px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: var(--space-4) var(--space-8);
+}
+@keyframes arm-float {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), -64px) scale(1.1) rotate(var(--rot)); }
+}
