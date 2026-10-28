@@ -17,7 +17,7 @@
        Events and History in every page's nav.
     2. Robots hero: "Coming soon to a competition near you" headline
        with a days-only countdown to the next competition right
-       under it.
+       under it, and the robot arm standing to the left of it.
     3. Past Portfolios: a table-style list of every season, newest
        first, DECODE down to Rover Ruckus. Click a row and it opens
        up with that season's engineering portfolio PDF embedded right
@@ -27,6 +27,15 @@
   from NEXT_COMP_DATE / NEXT_COMP_LABEL at the top of script.js — the
   same two lines drive the home page countdown card too, so update
   them once there and both pages follow.
+
+  Robot arm: lives entirely in RobotsRobotArm.js (artwork + animation),
+  which drops him into the hero when the page loads. He delivers the
+  day count into the box, follows the cursor around the hero, and
+  every so often does a move (dance, stretch, nap...). His
+  position/colors are in style.css section 25; how often he moves and
+  whether he follows the cursor are ARM_SETTINGS near the top of
+  RobotsRobotArm.js. The original "Robot Arm.ai" never goes on the
+  site.
 
   Portfolios: each row's PDF comes from its data-pdf attribute. Drop
   the PDF files into the "PastPorts" folder next to this page, named
@@ -78,7 +87,7 @@
 
 <div class="page active" id="page-robots">
 
-  <!-- HERO: headline + countdown -->
+  <!-- HERO: headline + countdown (the robot arm gets added here by RobotsRobotArm.js) -->
   <div class="robots-hero">
     <div class="robots-kicker type-caption mono">2026–27 · BIOBUZZ Robot</div>
     <h1 class="robots-title type-headline">Coming soon to a <span>competition near you</span></h1>
@@ -274,5 +283,7 @@
 <div class="rgb-strip"></div>
 
 <script src="script.js"></script>
+<!-- robots page only: the robot arm in the hero -->
+<script src="RobotsRobotArm.js"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@
    22. Reduced motion
    23. Responsive: tablet nav + phone layout
    24. Hidden drafts / empty sections
-   25. Overview robot arm
+   25. Robots page robot arm
 */
 
 
@@ -1380,80 +1380,51 @@ body.modal-open { overflow: hidden; }
 .page-header { overflow-x: clip !important; }
 
 
-/* 25. Overview robot arm
-   The "workcell" version: the countdown card gets wider and turns
-   into a little robot cell. Countdown on the left, the arm standing
-   on a hazard-stripe floor on the right, and a thin divider between
-   them.
+/* 25. Robots page robot arm
+   The arm that stands to the left of the countdown card in the
+   Robots page hero. RobotsRobotArm.js adds the <svg class="robots-arm">
+   artwork into .robots-hero and animates it (delivering the number,
+   following the cursor, and the occasional dance / stretch / nap
+   etc.). This section only places and colors it.
 
-   IndexRobotArm.js adds the arm <svg class="home-arm">, the floor
-   and divider into #countdownCard, then puts "has-arm" on the
-   card. Everything wide/cell-like below only applies with has-arm,
-   so if the script ever fails to load the card just stays the
-   normal 380px countdown.
-
-   - Card: 580px wide. The extra 240px of right padding is the
-     cell's floor space; the countdown text keeps the same 300px
-     width it always had.
-   - Arm: flipped with scaleX(-1) so he faces left, toward the
-     number. bottom: 7px puts his base plate right on the floor
-     stripe.
+   - .robots-hero gets position: relative so the arm, the number tile
+     he carries and the little floating "♪ / z / hi!" bits can all be
+     positioned against it.
+   - left: calc(50% - 470px) parks his base just left of the 460px
+     card, which is centered in the hero. bottom: 24px stands him on
+     the same line as the bottom of the card area.
    - Colors are the original Robot Arm.ai teals. Swap --arm-light /
      --arm-core for var(--teal) / var(--teal-dim) to match the site
      tokens instead.
-   - Phones never see him: section 23 already hides the whole
-     .home-countdown under 760px. */
-.home-countdown { position: relative; }
+   - Under 1100px there isn't room beside the card, so he's hidden
+     and the number just shows normally (the script checks this). */
+.robots-hero { position: relative; }
 
-.home-countdown.has-arm {
-  flex-basis: 580px;
-  padding: var(--space-40) 240px var(--space-48) var(--space-40);
-}
-.home-countdown.has-arm .countdown-label,
-.home-countdown.has-arm .countdown-digits,
-.home-countdown.has-arm .countdown-event { width: 300px; }
-
-/* hazard-stripe floor along the bottom of the cell */
-.arm-floor {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 12px;
-  border-top: 1px solid var(--border);
-  background: repeating-linear-gradient(-45deg, rgba(255,45,120,0.35) 0 6px, transparent 6px 14px);
-  opacity: 0.7;
-  pointer-events: none;
-}
-/* thin line between the countdown and the arm's side */
-.arm-divider {
-  position: absolute;
-  top: var(--space-40);
-  bottom: 28px;
-  left: 360px;
-  width: 1px;
-  background: var(--border);
-  pointer-events: none;
-}
-.home-arm {
+.robots-arm {
   --arm-light: #44C0BD;
   --arm-core: #00A89D;
   --arm-line: var(--bg);
   position: absolute;
-  right: 20px;
-  bottom: 7px;
-  width: 200px;
-  height: 237px;
+  left: calc(50% - 470px);
+  bottom: var(--space-24);
+  width: 330px;
+  height: 391px;
   overflow: visible;
-  transform: scaleX(-1);
   pointer-events: none;
   z-index: 4;
   transition: translate 0.08s;
 }
-.home-arm .af { fill: var(--arm-light); }
-.home-arm .ad { fill: var(--arm-core); }
-.home-arm .al { stroke: var(--arm-line); stroke-width: 4; }
-.home-arm path:not(.af):not(.ad) { fill: none; }
+.robots-arm .af { fill: var(--arm-light); }
+.robots-arm .ad { fill: var(--arm-core); }
+.robots-arm .al { stroke: var(--arm-line); stroke-width: 4; }
+.robots-arm path:not(.af):not(.ad) { fill: none; }
 
-/* the number tile he carries in (same look as .countdown-num) */
+@media (max-width: 1100px) {
+  .robots-arm { display: none; }
+}
+
+/* the number tile he carries in (same look as the big Robots
+   page .countdown-num) */
 .arm-tile {
   position: absolute;
   z-index: 5;
@@ -1461,15 +1432,15 @@ body.modal-open { overflow: hidden; }
   opacity: 0;
   pointer-events: none;
   font-family: "Inter", sans-serif;
-  font-size: 34px;
+  font-size: 64px;
   font-weight: 900;
   line-height: 1;
   color: var(--pink);
   background: var(--surface2);
   border: 1px solid rgba(255,45,120,0.6);
   border-radius: var(--radius);
-  padding: var(--space-8);
-  min-width: 58px;
+  padding: var(--space-16);
+  min-width: 140px;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }

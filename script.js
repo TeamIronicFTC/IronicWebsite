@@ -20,8 +20,8 @@
 //      six nav links away on tablets and phones (style.css 23)
 //   7. Keyboard support for the sponsor form button (Enter/Space)
 //
-// The robot arm on the home page countdown is its own file,
-// IndexRobotArm.js, loaded only by index.html.
+// The robot arm in the Robots page hero is its own file,
+// RobotsRobotArm.js, loaded only by robots.html.
 
 
 // ----------------------------------------------------------
