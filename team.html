@@ -35,6 +35,13 @@
     vertical-align: 1px;
   }
   .team-card.pink .team-card-tag { color: var(--teal); border-color: var(--teal-border); }
+
+  /* PYRAMID ROWS (Code / Build / Media group)
+     The group is split into two stacked .team-grid rows: 4 cards on
+     top, 5 underneath, both centered so the top row sits in the gaps
+     of the bottom row. The top row's bottom margin matches the
+     grid's normal row gap so the two rows read as one block. */
+  .team-grid.pyramid-top { margin-bottom: var(--space-32) !important; }
 </style>
 <script>
   /* TEAM PHOTO FALLBACK
@@ -71,15 +78,20 @@
   Josh V.
 
   Code, Build, and Media are intentionally NOT split into separate
-  stacked sections anymore. They're one team, all on equal footing,
-  so their cards live together in a single .team-grid with the
-  members interleaved (a coder, then a builder, then a build/code
-  hybrid, then a media person, repeating) instead of clustered by
-  role. Each card still shows its own role on the card itself:
+  stacked sections. They're one team, all on equal footing, laid out
+  as a PYRAMID: two centered rows, 4 on top and 5 underneath.
+    Top row:    Logan - Amberlynn - Lucas - Carly
+    Bottom row: Miranda - Adler - Sophie - Mari - JayDon
+  Each row is its own .team-grid (".pyramid-top" on the first one,
+  see the <style> block above). Each card still shows its own role:
     - "Code"        — code only
     - "Build"        — build only
     - "Build, Code"  — does both (comma-separated, on one line)
     - "Media"        — media
+
+  Card colors in the pyramid alternate blue / pink in reading order
+  (left to right, top row then bottom row), so no two side-by-side
+  cards match and the bottom row starts and ends on blue.
 
   Alumni Mentors is its own section, placed right above Coaches.
   It holds Jayden Encarnacion and Ari Viera. Each card's role line
@@ -91,10 +103,7 @@
   group's .team-grid, then swap the photo filename (TeamPhotos/<Name>Team.jpg), name,
   role and grade.
   "pink" and "blue" just switch the accent color, doesn't mean
-  anything, use whichever looks better next to the last card. When
-  adding someone to the combined Code/Build/Media group, drop their
-  card in wherever keeps the roles mixed rather than at the very end
-  — the point is no visual clustering by role.
+  anything, keep them alternating so neighbors never match.
 
   Each card's role color comes from the "pink"/"blue" class on
   .team-card itself, styled in style.css section 12, so there's only
@@ -187,11 +196,13 @@
       </div>
     </div>
 
-    <!-- CODE / BUILD / MEDIA — one combined, equal-level group.
-         Cards are interleaved on purpose (Code, Build, Build+Code,
-         Media, repeat) instead of grouped block-by-block. -->
+    <!-- CODE / BUILD / MEDIA — one combined, equal-level group,
+         laid out as a pyramid: 4 on top, 5 underneath.
+         Colors alternate blue/pink in reading order. -->
     <div class="events-section-title type-caption">Code / Build / Media</div>
-    <div class="team-grid" style="margin-bottom: 48px;">
+
+    <!-- Pyramid top row (4) -->
+    <div class="team-grid pyramid-top">
       <div class="team-card blue">
         <div class="team-card-img">
           <img src="TeamPhotos/LoganTeam.jpg" alt="Logan M." onerror="teamPhotoFallback(this)">
@@ -200,26 +211,6 @@
           <div class="team-card-name type-names">Logan M.</div>
           <div class="team-card-role">Build</div>
           <div class="team-card-grade">Grade 10</div>
-        </div>
-      </div>
-      <div class="team-card pink">
-        <div class="team-card-img">
-          <img src="TeamPhotos/LucasTeam.jpg" alt="Lucas B." onerror="teamPhotoFallback(this)">
-        </div>
-        <div class="team-card-body">
-          <div class="team-card-name type-names">Lucas B.</div>
-          <div class="team-card-role">Build, Code</div>
-          <div class="team-card-grade">Grade 12</div>
-        </div>
-      </div>
-      <div class="team-card blue">
-        <div class="team-card-img">
-          <img src="TeamPhotos/CarlyTeam.jpg" alt="Carly D." onerror="teamPhotoFallback(this)">
-        </div>
-        <div class="team-card-body">
-          <div class="team-card-name type-names">Carly D.</div>
-          <div class="team-card-role">Media</div>
-          <div class="team-card-grade">Grade 12</div>
         </div>
       </div>
       <div class="team-card pink">
@@ -234,6 +225,40 @@
       </div>
       <div class="team-card blue">
         <div class="team-card-img">
+          <img src="TeamPhotos/LucasTeam.jpg" alt="Lucas B." onerror="teamPhotoFallback(this)">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">Lucas B.</div>
+          <div class="team-card-role">Build, Code</div>
+          <div class="team-card-grade">Grade 12</div>
+        </div>
+      </div>
+      <div class="team-card pink">
+        <div class="team-card-img">
+          <img src="TeamPhotos/CarlyTeam.jpg" alt="Carly D." onerror="teamPhotoFallback(this)">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">Carly D.</div>
+          <div class="team-card-role">Media</div>
+          <div class="team-card-grade">Grade 12</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pyramid bottom row (5) -->
+    <div class="team-grid" style="margin-bottom: 48px;">
+      <div class="team-card blue">
+        <div class="team-card-img">
+          <img src="TeamPhotos/MirandaTeam.jpg" alt="Miranda P." onerror="teamPhotoFallback(this)">
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-name type-names">Miranda P.</div>
+          <div class="team-card-role">Media</div>
+          <div class="team-card-grade">Grade 11</div>
+        </div>
+      </div>
+      <div class="team-card pink">
+        <div class="team-card-img">
           <img src="TeamPhotos/AdlerTeam.jpg" alt="Adler Z." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
@@ -242,7 +267,7 @@
           <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
-      <div class="team-card pink">
+      <div class="team-card blue">
         <div class="team-card-img">
           <img src="TeamPhotos/SophieTeam.jpg" alt="Sophie M." onerror="teamPhotoFallback(this)">
         </div>
@@ -252,7 +277,7 @@
           <div class="team-card-grade">Grade 12</div>
         </div>
       </div>
-      <div class="team-card blue">
+      <div class="team-card pink">
         <div class="team-card-img">
           <img src="TeamPhotos/MariTeam.jpg" alt="Mari" onerror="teamPhotoFallback(this)">
         </div>
@@ -262,23 +287,13 @@
           <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
-      <div class="team-card pink">
+      <div class="team-card blue">
         <div class="team-card-img">
           <img src="TeamPhotos/JayDonTeam.jpg" alt="JayDon S." onerror="teamPhotoFallback(this)">
         </div>
         <div class="team-card-body">
           <div class="team-card-name type-names">JayDon S.</div>
           <div class="team-card-role">Build, Code</div>
-          <div class="team-card-grade">Grade 11</div>
-        </div>
-      </div>
-      <div class="team-card blue">
-        <div class="team-card-img">
-          <img src="TeamPhotos/MirandaTeam.jpg" alt="Miranda P." onerror="teamPhotoFallback(this)">
-        </div>
-        <div class="team-card-body">
-          <div class="team-card-name type-names">Miranda P.</div>
-          <div class="team-card-role">Media</div>
           <div class="team-card-grade">Grade 11</div>
         </div>
       </div>
